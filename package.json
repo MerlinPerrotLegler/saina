@@ -1,0 +1,20 @@
+{
+  "name": "anais",
+  "version": "1.0.0",
+  "description": "Boilerplate de d\u00e9part : vault Obsidian (`docs/`) + contrat machine (`schemas/`) pour une app PHP + Nuxt, indexable par Graphify et lisible par un humain.",
+  "type": "module",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "init": "node scripts/init.mjs",
+    "validate": "node scripts/init.mjs",
+    "test": "node scripts/init.mjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "js-yaml": "^4.1.1"
+  }
+}

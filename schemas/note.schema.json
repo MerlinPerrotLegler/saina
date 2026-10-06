@@ -1,0 +1,243 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-host.local/schemas/note.schema.json",
+  "title": "ProjectHost Obsidian note frontmatter",
+  "description": "Frontmatter YAML of a vault note under docs/. The markdown body is not validated here. Wikilinks in YAML must be quoted (e.g. \"[[GOAL]]\") so YAML does not parse them as nested arrays. The id is a lowercase kebab slug; singleton project notes use uppercase filenames (GOAL.md → id goal).",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["id", "type", "status"],
+  "$defs": {
+    "kebabId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Lowercase kebab-case slug. Equals the note filename without .md, except singleton project notes (GOAL.md → goal)."
+    },
+    "wikiLink": {
+      "type": "string",
+      "pattern": "^\\[\\[[^\\]|#]+(#[^\\]]+)?\\]\\]$",
+      "description": "Obsidian wikilink [[Note]] or [[Note#Heading]]. No display alias (|). Quote in YAML."
+    },
+    "wikiLinkList": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/wikiLink" },
+      "uniqueItems": true
+    },
+    "posixRelPath": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$",
+      "description": "Repo-relative POSIX path (no leading slash, no ..)."
+    },
+    "appRelPath": {
+      "type": "string",
+      "pattern": "^app/[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$",
+      "description": "Repo-relative path under app/ (Vue/Nuxt, including adjacent SCSS)."
+    }
+  },
+  "properties": {
+    "id": {
+      "$ref": "#/$defs/kebabId"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "goal",
+        "guideline",
+        "gitflow",
+        "glossary-summary",
+        "glossary",
+        "process",
+        "discussion",
+        "fsd",
+        "tsd",
+        "user-doc",
+        "task",
+        "test",
+        "styleguide",
+        "contract"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "review",
+        "accepted",
+        "implementing",
+        "done",
+        "superseded"
+      ]
+    },
+    "lang": {
+      "type": "string",
+      "enum": ["fr", "en"],
+      "default": "fr"
+    },
+    "feature_id": {
+      "$ref": "#/$defs/kebabId",
+      "description": "Shared slug for a feature family (discussion / fsd / tsd / user-doc / task / test)."
+    },
+    "aliases": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "relates_to": { "$ref": "#/$defs/wikiLinkList" },
+    "prev": { "$ref": "#/$defs/wikiLinkList" },
+    "next": { "$ref": "#/$defs/wikiLinkList" },
+    "glossary": { "$ref": "#/$defs/wikiLinkList" },
+    "governed_by": { "$ref": "#/$defs/wikiLinkList" },
+    "code_paths": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/posixRelPath" },
+      "uniqueItems": true,
+      "description": "Repo-relative files this note specifies (PHP API, Vue/Nuxt SFC, SCSS under app/)."
+    },
+    "test_paths": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/posixRelPath" },
+      "uniqueItems": true
+    },
+    "scss_namespace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$",
+      "description": "Class namespace used inside Vue SFCs or adjacent app/**/*.scss. Never a path under docs/."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "type": { "const": "goal" } },
+        "required": ["type"]
+      },
+      "then": {
+        "properties": { "id": { "const": "goal" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "guideline" } },
+        "required": ["type"]
+      },
+      "then": {
+        "properties": { "id": { "const": "guidelines" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "gitflow" } },
+        "required": ["type"]
+      },
+      "then": {
+        "properties": { "id": { "const": "gitflow" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "process" } },
+        "required": ["type"]
+      },
+      "then": {
+        "properties": { "id": { "const": "process" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "contract" } },
+        "required": ["type"]
+      },
+      "then": {
+        "properties": { "id": { "const": "edges" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "glossary-summary" } },
+        "required": ["type"]
+      },
+      "then": {
+        "properties": { "id": { "const": "glossary-summary" } }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": { "enum": ["discussion", "fsd", "tsd", "user-doc"] }
+        },
+        "required": ["type"]
+      },
+      "then": {
+        "required": ["feature_id", "governed_by"],
+        "properties": {
+          "governed_by": {
+            "type": "array",
+            "minItems": 1,
+            "contains": { "const": "[[GOAL]]" }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "task" } },
+        "required": ["type"]
+      },
+      "then": {
+        "required": ["feature_id", "prev"],
+        "properties": {
+          "prev": {
+            "type": "array",
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "test" } },
+        "required": ["type"]
+      },
+      "then": {
+        "required": ["feature_id", "relates_to"],
+        "properties": {
+          "relates_to": {
+            "type": "array",
+            "minItems": 1
+          }
+        },
+        "anyOf": [
+          {
+            "required": ["test_paths"],
+            "properties": {
+              "test_paths": { "type": "array", "minItems": 1 }
+            }
+          },
+          {
+            "required": ["code_paths"],
+            "properties": {
+              "code_paths": { "type": "array", "minItems": 1 }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "styleguide" } },
+        "required": ["type"]
+      },
+      "then": {
+        "properties": {
+          "code_paths": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/appRelPath" }
+          }
+        }
+      }
+    }
+  ]
+}

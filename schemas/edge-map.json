@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-host.local/schemas/edge-map.json",
+  "title": "ProjectHost domain edge map",
+  "description": "Maps vault YAML relations to Graphify EXTRACTED edges. Graphify semantic `relation` is a closed enum; domain names stay in YAML. Overlay (later) emits confidence EXTRACTED / confidence_score 1.0. Human copy: docs/00-project/EDGES.md.",
+  "version": 1,
+  "graphify_relations": [
+    "calls",
+    "implements",
+    "references",
+    "cites",
+    "conceptually_related_to",
+    "shares_data_with",
+    "semantically_similar_to",
+    "rationale_for"
+  ],
+  "overlay": {
+    "confidence": "EXTRACTED",
+    "confidence_score": 1.0,
+    "skip_inferred_for_process": true
+  },
+  "node_ids": {
+    "notes": "Graphify stem from vault-relative path (e.g. docs/00-project/GOAL.md → docs_00_project_goal).",
+    "code": "Graphify AST ids for PHP / Vue / SCSS under app/ and api/.",
+    "glossary_god_nodes": "Human wikilink [[term]] (filename unique across the vault)."
+  },
+  "rules": [
+    "If a process relation is not in YAML (or @spec / @glossary in code), it is not a process edge (INFERRED at best).",
+    "A body wikilink without a matching YAML field is Graphify references EXTRACTED (citation), not a domain relation.",
+    "Direction: source = note or file that declares the field, except IMPLEMENTS (code → spec).",
+    "Do not invent Graphify relation values outside graphify_relations."
+  ],
+  "code_annotations": {
+    "spec": "@spec [[fsd-slug]]",
+    "glossary": "@glossary [[term]]"
+  },
+  "edges": [
+    {
+      "domain": "ADVANCES",
+      "source": "prev wiki-link target note, then current note",
+      "target": "current note, then next wiki-link target note",
+      "direction": "prev → current → next",
+      "trigger": {
+        "frontmatter": ["prev", "next"]
+      },
+      "graphify": {
+        "relation": "conceptually_related_to"
+      }
+    },
+    {
+      "domain": "GOVERNS",
+      "source": "GOAL / GUIDELINES / GITFLOW (targets of governed_by)",
+      "target": "the spec or task note that declares governed_by",
+      "direction": "governor → spec",
+      "trigger": {
+        "frontmatter": ["governed_by"]
+      },
+      "graphify": {
+        "relation": "rationale_for"
+      }
+    },
+    {
+      "domain": "GLOSSES",
+      "source": "the note that declares glossary",
+      "target": "glossary term notes",
+      "direction": "note → term",
+      "trigger": {
+        "frontmatter": ["glossary"]
+      },
+      "graphify": {
+        "relation": "references"
+      }
+    },
+    {
+      "domain": "SPECIFIES",
+      "source": "fsd / tsd / user-doc note",
+      "target": "files in code_paths",
+      "direction": "spec → file",
+      "trigger": {
+        "frontmatter": ["code_paths"],
+        "note_types": ["fsd", "tsd", "user-doc"]
+      },
+      "graphify": {
+        "relation": "references"
+      }
+    },
+    {
+      "domain": "IMPLEMENTS",
+      "source": "code file (PHP, Vue/Nuxt, SCSS under app/)",
+      "target": "spec note",
+      "direction": "file → spec",
+      "trigger": {
+        "inverse_of": "code_paths",
+        "code_comment": "@spec [[fsd-…]]"
+      },
+      "graphify": {
+        "relation": "implements"
+      }
+    },
+    {
+      "domain": "TESTS",
+      "source": "test note and files in test_paths / code_paths",
+      "target": "fsd / tsd (relates_to)",
+      "direction": "test → spec",
+      "trigger": {
+        "frontmatter": ["relates_to", "test_paths"],
+        "note_types": ["test"]
+      },
+      "graphify": {
+        "relation": "implements"
+      }
+    },
+    {
+      "domain": "STYLES",
+      "source": "styleguide note (TOKENS)",
+      "target": "Vue SFC / SCSS listed in code_paths under app/",
+      "direction": "styleguide → Vue/SCSS",
+      "trigger": {
+        "frontmatter": ["code_paths", "scss_namespace"],
+        "note_types": ["styleguide"]
+      },
+      "graphify": {
+        "relation": "shares_data_with"
+      }
+    },
+    {
+      "domain": "SUMMARIZES",
+      "source": "GLOSSARY-SUMMARY",
+      "target": "glossary/* notes linked from the summary body and glossary field",
+      "direction": "summary → term",
+      "trigger": {
+        "frontmatter": ["glossary"],
+        "body_wikilinks": true,
+        "note_types": ["glossary-summary"]
+      },
+      "graphify": {
+        "relation": "references"
+      }
+    }
+  ]
+}

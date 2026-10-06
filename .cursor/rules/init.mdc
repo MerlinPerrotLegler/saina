@@ -1,0 +1,14 @@
+---
+description: Bootstrap du kit — lancer npm run init avant de coder
+alwaysApply: true
+---
+
+# Init
+
+Au démarrage d’un projet, ou si GOAL / GUIDELINES / GITFLOW / GLOSSARY-SUMMARY sont encore des stubs (`_À rédiger._`) :
+
+1. Exécuter `npm run init` (ne pas réinventer la validation).
+2. Lire le rapport : notes invalides = corriger le YAML ; stubs = interview de définition, puis édiger les MD.
+3. Ne pas écrire de code applicatif (`app/`, `api/`) tant que ces quatre notes sont des stubs.
+
+Wikilinks dans le frontmatter **toujours quotés** (`"[[GOAL]]"`). Noms de notes uniques. SCSS spécifique uniquement dans les SFC Vue / `app/**/*.scss`. Vault Obsidian = `docs/` (pas `graphify export obsidian`). Specs : `docs/00-project/PROCESS.md`.

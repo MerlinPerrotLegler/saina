@@ -1,0 +1,17 @@
+{
+  "types": {
+    "id": "text",
+    "type": "text",
+    "status": "text",
+    "lang": "text",
+    "feature_id": "text",
+    "scss_namespace": "text",
+    "relates_to": "multitext",
+    "prev": "multitext",
+    "next": "multitext",
+    "glossary": "multitext",
+    "governed_by": "multitext",
+    "code_paths": "multitext",
+    "test_paths": "multitext"
+  }
+}
