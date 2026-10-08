@@ -1,6 +1,52 @@
-# Je suis Anaïs, fondatrice de Sïana Joaillerie
+---
+id: fsd-a-propos
+type: fsd
+status: accepted
+lang: fr
+feature_id: a-propos
+aliases:
+  - À propos
+tags:
+  - specs
+relates_to:
+  - "[[discussion-a-propos]]"
+  - "[[siana]]"
+  - "[[TOKENS]]"
+prev:
+  - "[[discussion-a-propos]]"
+next: []
+glossary:
+  - "[[siana]]"
+governed_by:
+  - "[[GOAL]]"
+  - "[[GUIDELINES]]"
+code_paths:
+  - assets/brand/photo-anais.jpeg
+test_paths: []
+---
 
-### Des bijoux imaginés pour raconter ce qui vous rend unique.
+# FSD — À propos
+
+Page de présentation d’Anaïs. Pas de tunnel, pas de formulaire. Le portrait est `assets/brand/photo-anais.jpeg`.
+
+## Acteurs
+
+- Visiteur du site.
+- Anaïs, citée à la première personne : créatrice, dessinatrice, conceptrice 3D.
+
+## Comportement
+
+Afficher le texte ci-dessous, dans cet ordre, avec le portrait. Le chapô n’est pas la baseline du logo (« Joaillerie de transmission », voir [[TOKENS]]).
+
+### Titre
+
+Je suis Anaïs, fondatrice de Sïana Joaillerie.
+
+### Chapô
+
+Des bijoux imaginés pour raconter ce qui vous rend unique.
+
+### Des bijoux imaginés…
 
 Derrière Sïana Joaillerie, il y a moi, Anaïs.
 
@@ -12,7 +58,7 @@ J’ai toujours aimé donner vie aux idées. Aujourd’hui, je mets cette passio
 
 Je crois que la joaillerie peut être précieuse sans être figée dans les codes traditionnels.
 
-Grâce à mon expertise de dessin  3D, je peux aller chercher des formes parfois difficiles à imaginer autrement et vous permettre de **voir votre bijou prendre vie avant même sa fabrication**.
+Grâce à mon expertise de dessin 3D, je peux aller chercher des formes parfois difficiles à imaginer autrement et vous permettre de **voir votre bijou prendre vie avant même sa fabrication**.
 
 ### Des bijoux qui ont une histoire
 
@@ -20,7 +66,7 @@ Une alliance peut représenter deux personnalités qui se complètent.
 
 Un bijou peut marquer une étape, célébrer une personne, transmettre un souvenir ou simplement vous rappeler qui vous êtes.
 
-Un bijou peut être un témoin qui nous remémore au quotidien une naissance, un baptême, un anniversaire, un amour, une célébration ...
+Un bijou peut être un témoin qui nous remémore au quotidien une naissance, un baptême, un anniversaire, un amour, une célébration...
 
 C’est cette dimension personnelle qui me touche particulièrement dans mon métier.
 
@@ -49,3 +95,8 @@ Chaque création est pour moi une petite aventure : imaginer, dessiner, chercher
 Bienvenue dans mon univers.
 
 **Bienvenue chez Sïana Joaillerie.**
+
+## Hors scope
+
+- Biographie longue, tarifs, catalogue.
+- Réécriture du texte ou remplacement du chapô par la baseline du logo.

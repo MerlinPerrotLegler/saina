@@ -1,7 +1,7 @@
 {
   "name": "anais",
   "version": "1.0.0",
-  "description": "Boilerplate de d\u00e9part : vault Obsidian (`docs/`) + contrat machine (`schemas/`) pour une app PHP + Nuxt, indexable par Graphify et lisible par un humain.",
+  "description": "Sïana Joaillerie — vault Obsidian (docs/) et charte (assets/brand/) pour le site d'Anaïs.",
   "type": "module",
   "directories": {
     "doc": "docs"

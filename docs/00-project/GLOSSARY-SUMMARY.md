@@ -1,7 +1,7 @@
 ---
 id: glossary-summary
 type: glossary-summary
-status: draft
+status: accepted
 lang: fr
 aliases: []
 tags:
@@ -10,10 +10,18 @@ tags:
 relates_to:
   - "[[GOAL]]"
   - "[[GUIDELINES]]"
+  - "[[fsd-quiz-style]]"
+  - "[[fsd-a-propos]]"
 prev: []
 next: []
 glossary:
   - "[[scss-nomenclature]]"
+  - "[[siana]]"
+  - "[[style-de-bijou]]"
+  - "[[style-chaleureux]]"
+  - "[[style-elegant]]"
+  - "[[style-sensible]]"
+  - "[[style-instinctif]]"
 governed_by:
   - "[[GOAL]]"
 code_paths: []
@@ -27,5 +35,9 @@ Index des termes. Chaque entrée a une note dans `30-glossary/` (nom unique = wi
 ## Termes
 
 - [[scss-nomenclature]] — où et comment nommer le SCSS Vue/Nuxt
-
-<!-- IA: ajouter `- [[terme]]` ici ET dans le champ YAML `glossary`. -->
+- [[siana]] — la maison, Anaïs, la baseline
+- [[style-de-bijou]] — ce que le quiz nomme (pas une personnalité)
+- [[style-chaleureux]] — or poli, lumière, célébration
+- [[style-elegant]] — finesse, quotidien, modernité
+- [[style-sensible]] — courbes, sens, monde intérieur
+- [[style-instinctif]] — matières brutes, structure, ancrage

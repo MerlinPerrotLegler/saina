@@ -1,8 +1,8 @@
-# Project Host Kit
+# Sïana Joaillerie
 
-Boilerplate de départ : vault Obsidian (`docs/`) + contrat machine (`schemas/`) pour une app PHP + Nuxt, indexable par Graphify et lisible par un humain.
+Site d’Anaïs (Sïana). Le vault métier est [`docs/`](docs/) : objectif, charte, page à propos, quiz de style. Les visuels sont dans [`assets/brand/`](assets/brand/).
 
-Cette étape fige **uniquement** le schéma des notes et la carte des arêtes. Pas de MCP, pas de scaffold `app/` / `api/` encore.
+Le dépôt repose sur le Project Host Kit : contrat des notes dans [`schemas/`](schemas/), pas de scaffold `app/` / `api/` tant que les specs ne sont pas découpées en tâches.
 
 ## Init
 

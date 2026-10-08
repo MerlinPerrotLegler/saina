@@ -1,7 +1,7 @@
 ---
 id: gitflow
 type: gitflow
-status: draft
+status: accepted
 lang: fr
 aliases: []
 tags:
@@ -21,19 +21,21 @@ test_paths: []
 
 # GITFLOW
 
-<!-- IA: branches, commits, PRs. Les tasks (`type: task`) se rattachent ici via governed_by. -->
+Convention du kit, déjà amorcée par la branche `develop`. Les notes `task` s’y rattachent via `governed_by`.
 
 ## Branches
 
-_À rédiger (ex. `main`, `develop`, `feature/<feature_id>`)._
+- `main` — état livrable
+- `develop` — intégration
+- `feature/<feature_id>` — une fonctionnalité, le slug reprend le `feature_id` de la famille de notes (ex. `feature/quiz-style`)
 
 ## Commits
 
-_À rédiger._
+Message court, en français, à l’impératif, centré sur le pourquoi.
 
 ## Pull requests
 
-Une PR implémente une note `task` (et la spec `fsd` / `tsd` liée). Le `feature_id` de la note = slug de branche quand c’est possible.
+Une PR implémente une note `task` et la spec `fsd` / `tsd` liée. Pas de PR de code applicatif tant que la tâche n’existe pas.
 
 ## Voir aussi
 
