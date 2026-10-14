@@ -1,7 +1,9 @@
 <template>
   <div class="c-page">
     <UiHeader />
-    <slot />
+    <main>
+      <slot />
+    </main>
     <UiFooter />
   </div>
 </template>

@@ -1,26 +1,22 @@
 <script setup>
+import { isCurrentPath, mainNav } from "~/utils/nav";
+
 defineProps({
   items: {
     type: Array,
-    default: () => [
-      { label: "Histoire", href: "/#histoire" },
-      { label: "Boutiques", href: "/#boutiques" },
-      { label: "L’univers", href: "/#univers" },
-      { label: "Bijoux", href: "/#bijoux" },
-      { label: "Sur-mesure", href: "/#sur-mesure" },
-      { label: "À propos", href: "/a-propos" },
-      { label: "Contact", href: "/#contact" },
-    ],
+    default: () => mainNav,
   },
   tools: {
     type: Array,
-    default: () => [
-      { label: "Recherche", href: "/#recherche", icon: "search" },
-      { label: "Compte", href: "/#compte", icon: "account" },
-      { label: "Panier", href: "/#panier", icon: "bag" },
-    ],
+    default: () => [],
   },
 });
+
+const route = useRoute();
+
+function current(href) {
+  return isCurrentPath(route.path, href);
+}
 </script>
 
 <template>
@@ -32,11 +28,12 @@ defineProps({
         :key="item.href"
         class="c-nav-link"
         :to="item.href"
+        :aria-current="current(item.href) ? 'page' : undefined"
       >
         {{ item.label }}
       </NuxtLink>
     </nav>
-    <div class="c-tools">
+    <div v-if="tools.length" class="c-tools">
       <UiIconBtn
         v-for="tool in tools"
         :key="tool.icon"

@@ -1,34 +1,20 @@
 <script setup>
+import { isCurrentPath, mainNav } from "~/utils/nav";
+
 const year = new Date().getFullYear();
+const route = useRoute();
 
 defineProps({
   blurb: {
     type: String,
-    default: "Des bijoux porteurs de sens, inspirés par la nature, les pierres et les histoires qui nous relient.",
+    default: "Des bijoux imaginés pour raconter ce qui vous rend unique.",
   },
   columns: {
     type: Array,
     default: () => [
       {
-        title: "Liens rapides",
-        links: [
-          { label: "Histoire", href: "/#histoire" },
-          { label: "L’univers", href: "/#univers" },
-          { label: "Pierres", href: "/#bijoux" },
-          { label: "Boutique", href: "/#boutiques" },
-          { label: "À propos", href: "/a-propos" },
-        ],
-      },
-      {
-        title: "Informations",
-        links: [
-          { label: "FAQ", href: "/#faq" },
-          { label: "Livraison", href: "/#livraison" },
-          { label: "Retours", href: "/#retours" },
-          { label: "Conditions générales", href: "/#conditions" },
-          { label: "Mentions légales", href: "/#mentions" },
-          { label: "Politique de confidentialité", href: "/#confidentialite" },
-        ],
+        title: "Navigation",
+        links: mainNav,
       },
     ],
   },
@@ -44,10 +30,14 @@ defineProps({
 function external(href) {
   return href.startsWith("mailto:") || href.startsWith("tel:");
 }
+
+function current(href) {
+  return isCurrentPath(route.path, href);
+}
 </script>
 
 <template>
-  <footer id="contact" class="c-footer">
+  <footer class="c-footer">
     <div class="c-footer-grid">
       <div>
         <UiLogo />
@@ -57,7 +47,14 @@ function external(href) {
         <p class="c-footer-title">{{ column.title }}</p>
         <template v-for="link in column.links" :key="link.href">
           <a v-if="external(link.href)" class="c-footer-link" :href="link.href">{{ link.label }}</a>
-          <NuxtLink v-else class="c-footer-link" :to="link.href">{{ link.label }}</NuxtLink>
+          <NuxtLink
+            v-else
+            class="c-footer-link"
+            :to="link.href"
+            :aria-current="current(link.href) ? 'page' : undefined"
+          >
+            {{ link.label }}
+          </NuxtLink>
         </template>
       </div>
       <div>

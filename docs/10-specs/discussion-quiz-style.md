@@ -40,15 +40,20 @@ Le cahier source mélange un prompt de développement et la spec. Seul le compor
 - Continuer seulement après un bouton « Continuer ».
 - Enchaîner dès la sélection d’une réponse.
 
-Les deux sont acceptables. Contrainte commune : ne jamais perdre une réponse, y compris via le retour navigateur.
+Contrainte commune : ne jamais perdre une réponse, y compris via le retour navigateur.
 
 - Tutoiement partout, ou vouvoiement partout.
 - Textes de résultat actuels (« Tu es une personne… ») ou reformulation qui ne décrit qu’un style.
 
 ## Décision
 
-- Quatre styles, noms mixtes, score +1 par réponse, départage déterministe. Détail dans [[fsd-quiz-style]].
+- Quatre styles, noms mixtes, score +1 par réponse, départage déterministe. Le parcours complet (écrans, textes, score, cas) est dans [[fsd-quiz-style]].
 - Le formulaire bloque le résultat. Champs : prénom, nom, e-mail, date de mariage ou d’événement.
-- Pas d’URL de rendez-vous inventée. Pas de partage social en v1. Pas de pop-up d’abandon.
+- Enchaînement : bouton **Continuer**. La sélection ne fait pas avancer seule.
+- Bouton du formulaire : **Découvrir mon style**.
+- La soumission emporte les quatre champs, le style calculé et les neuf réponses. La durée de conservation après la session reste ouverte.
+- L’URL de rendez-vous est celle fournie plus tard. Pas de partage social en v1. Pas de pop-up d’abandon.
 - **Non tranché — registre.** Les questions 1 à 8 vouvoient. La question pierre et les titres de résultat tutoient. Les paragraphes de résultat disent « Tu es une personne… », ce qui contredit la règle « ne pas diagnostiquer une personnalité ». Les deux formulations sont conservées telles quelles dans la FSD jusqu’à un choix explicite. En cas de conflit à l’implémentation, l’ordre de [[GUIDELINES]] place l’exactitude du résultat et la clarté avant l’esthétique ; il ne tranche pas ce conflit de copie.
-- **Non tranché — indexation** des pages de résultat, **conservation** des réponses après la session, **texte juridique** du consentement e-mail.
+- **Non tranché — indexation** des pages de résultat. En attendant, ces adresses sont en `noindex`. La page d’entrée du quiz reste indexable.
+- **Non tranché — durée de conservation** des réponses après la session.
+- **Non tranché — texte juridique** du consentement e-mail. Pas de case marketing tant que ce texte n’existe pas.

@@ -61,18 +61,9 @@ const quotes = [
 
 const headerItems = [
   { label: "Histoire", href: "#header" },
-  { label: "Boutiques", href: "#header" },
-  { label: "L’univers", href: "#header" },
-  { label: "Bijoux", href: "#header" },
   { label: "Sur-mesure", href: "#header" },
-  { label: "À propos", href: "#header" },
+  { label: "Portfolio", href: "#header" },
   { label: "Contact", href: "#header" },
-];
-
-const headerTools = [
-  { label: "Recherche", href: "#icon-btn", icon: "search" },
-  { label: "Compte", href: "#icon-btn", icon: "account" },
-  { label: "Panier", href: "#icon-btn", icon: "bag" },
 ];
 </script>
 
@@ -167,7 +158,7 @@ const headerTools = [
       <section id="header" class="guide-block">
         <h2>En-tête <code>UiHeader</code></h2>
         <div class="c-page">
-          <UiHeader :items="headerItems" :tools="headerTools" />
+          <UiHeader :items="headerItems" />
         </div>
         <h3>Inputs</h3>
         <ul>

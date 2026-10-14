@@ -1,6 +1,8 @@
 <script setup>
 defineProps({
   image: { type: String, required: true },
+  imageLabel: { type: String, default: "" },
+  imagePosition: { type: String, default: "center" },
   kicker: { type: String, required: true },
   title: { type: Array, required: true },
   lead: { type: String, required: true },
@@ -9,7 +11,16 @@ defineProps({
 </script>
 
 <template>
-  <section class="c-hero" :style="{ '--c-hero-image': `url('${image}')` }">
+  <section class="c-hero">
+    <img
+      class="c-hero-photo"
+      :src="image"
+      :alt="imageLabel"
+      :style="{ objectPosition: imagePosition }"
+      width="1066"
+      height="1600"
+      decoding="async"
+    >
     <div class="c-hero-copy">
       <UiLogo />
       <p class="c-kicker">{{ kicker }}</p>

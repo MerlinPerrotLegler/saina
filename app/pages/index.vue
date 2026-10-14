@@ -1,105 +1,154 @@
 <script setup>
-/** @spec [[composents]] */
+/** @spec [[fsd-a-propos]] */
+import { pieces } from "~/data/portfolio";
+
 const photo = "/brand/photo-anais.jpeg";
 
 useHead({
-  title: "Sïana — Bijoux & talismans",
+  title: "Sïana — Joaillerie de transmission",
   meta: [
     {
       name: "description",
-      content:
-        "Des bijoux porteurs de sens, inspirés par la nature, les pierres précieuses et les histoires qui vous relient.",
+      content: "Des bijoux imaginés par Anaïs pour raconter ce qui vous rend unique. Écoute, dessin 3D, pièces pensées pour être portées.",
     },
   ],
 });
 
-const values = [
-  { icon: "icone-points", label: ["Pierres", "naturelles"] },
-  { icon: "icone-soleil", label: ["Créations", "artisanales"] },
-  { icon: "icone-lune", label: ["Bijoux", "porteurs de sens"] },
-  { icon: "icone-coeur", label: ["Inspirés", "par la nature"] },
+const reassures = [
+  { icon: "icone-coeur", label: ["Écoute", "du projet"] },
+  { icon: "icone-soleil", label: ["Dessin 3D", "avant fabrication"] },
+  { icon: "icone-lune", label: ["Un bijou", "qui a un sens"] },
+  { icon: "icone-points", label: ["Fait pour", "être porté"] },
 ];
 
-const cards = [
-  { id: "colliers", image: photo, position: "20% center", title: "Colliers", href: "/#colliers", label: "Explorer" },
-  { id: "boucles", image: photo, position: "55% center", title: "Boucles d’oreilles", href: "/#boucles", label: "Explorer" },
-  { id: "bracelets", image: photo, position: "80% center", title: "Bracelets", href: "/#bracelets", label: "Explorer" },
-];
-
-const steps = [
-  { icon: "icone-soleil", label: ["Sélection", "de pierres de qualité"] },
-  { icon: "icone-lune", label: ["Fabrication", "artisanale"] },
-  { icon: "icone-coeur", label: ["Créations uniques", "ou petites séries"] },
-  { icon: "icone-points", label: ["Conseils", "personnalisés"] },
-];
-
-const quotes = [
-  {
-    text: "Un bijou magnifique, encore plus beau en vrai. On sent l’amour et la passion derrière chaque création.",
-    author: "Claire",
-    rating: 5,
-  },
-  {
-    text: "Une pièce unique et pleine de sens, qui m’accompagne tous les jours. Merci pour ton écoute et ta douceur.",
-    author: "Marine",
-    rating: 5,
-  },
-  {
-    text: "Des bijoux d’une grande qualité, avec des pierres superbes. Je recommande les yeux fermés.",
-    author: "Élodie",
-    rating: 5,
-  },
-];
+const cards = pieces.map((piece) => ({
+  id: piece.id,
+    image: piece.image,
+    position: piece.position,
+    title: piece.title,
+  href: `/portfolio#${piece.id}`,
+  label: "Lire",
+}));
 </script>
 
 <template>
   <UiHero
-    id="univers"
-    :image="photo"
-    kicker="Bijoux & talismans"
-    :title="['Transmission', 'Héritage', 'Joaillerie &', 'Pierres précieuses']"
-    lead="Des bijoux porteurs de sens, inspirés par la nature, les pierres précieuses et les histoires qui vous relient."
-    :cta="{ label: 'Découvrir l’univers', href: '/#bijoux' }"
-  />
-
-  <UiBand class="bg-creme text-terracotta" label="Repères" :items="values" />
-
-  <section id="bijoux" class="c-section">
-    <UiSectionIntro
-      kicker="Collections"
-      title="Des bijoux qui racontent une histoire"
-      lead="Chaque création est pensée comme un talisman, alliant beauté, symbolique et éclat des pierres. Des pièces uniques ou, en petites séries, pour vous accompagner au quotidien."
-      :cta="{ label: 'Découvrir les collections', href: '/#bijoux', variant: 'primary' }"
-    />
-    <UiCards id="boutiques" :items="cards" />
-  </section>
-
-  <UiSplit
     id="histoire"
     :image="photo"
-    image-label="Anaïs à l’établi"
-    kicker="À propos"
-    title="Une démarche sensible et authentique"
-    lead="Sïana, c’est l’alliance de ma passion pour les pierres et de mon savoir de créatrice. Chaque bijou suit sa voie, inspirée par la nature et les cycles de la vie, je conçois des bijoux qui vous accompagnent dans vos chemins personnels."
-    :cta="{ label: 'En savoir plus', href: '/a-propos', variant: 'primary' }"
+    image-label="Portrait d’Anaïs, assise, fondatrice de Sïana"
+    image-position="center 18%"
+    kicker="Joaillerie de transmission"
+    :title="['Je suis Anaïs,', 'fondatrice de', 'Sïana Joaillerie']"
+    lead="Des bijoux imaginés pour raconter ce qui vous rend unique."
+    :cta="{ label: 'Imaginer un bijou', href: '/sur-mesure' }"
   />
 
-  <UiBand id="sur-mesure" class="bg-terracotta text-creme" label="Façon" :items="steps" />
+  <UiBand class="bg-creme text-terracotta" label="Réassurance" :items="reassures" />
+
+  <article id="recit" class="c-about">
+    <div class="c-about__text">
+      <section>
+        <h2>Des bijoux imaginés</h2>
+        <p>Derrière Sïana Joaillerie, il y a moi, Anaïs.</p>
+        <p>
+          Dessiner, imaginer, jouer avec les matières, les couleurs et la lumière… C’est ma façon de créer des bijoux qui ne sont pas simplement beaux, mais qui <strong>résonnent avec la personne qui les porte</strong>.
+        </p>
+        <p>
+          J’ai toujours aimé donner vie aux idées. Aujourd’hui, je mets cette passion au service de la joaillerie pour imaginer des pièces singulières, pensées comme de véritables petits morceaux de vous.
+        </p>
+      </section>
+
+      <section>
+        <h2>Créer autrement</h2>
+        <p>Je crois que la joaillerie peut être précieuse sans être figée dans les codes traditionnels.</p>
+        <p>
+          Grâce à mon expertise de dessin 3D, je peux aller chercher des formes parfois difficiles à imaginer autrement et vous permettre de <strong>voir votre bijou prendre vie avant même sa fabrication</strong>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Des bijoux qui ont une histoire</h2>
+        <p>Une alliance peut représenter deux personnalités qui se complètent.</p>
+        <p>
+          Un bijou peut marquer une étape, célébrer une personne, transmettre un souvenir ou simplement vous rappeler qui vous êtes.
+        </p>
+        <p>
+          Un bijou peut être un témoin qui nous remémore au quotidien une naissance, un baptême, un anniversaire, un amour, une célébration...
+        </p>
+        <p>C’est cette dimension personnelle qui me touche particulièrement dans mon métier.</p>
+        <p>
+          J’aime créer des bijoux qui ont <strong>un sens pour vous</strong>, plutôt que des pièces simplement destinées à suivre une tendance.
+        </p>
+      </section>
+
+      <section>
+        <h2>Derrière chaque création, il y a une rencontre</h2>
+        <p>Chez Sïana Joaillerie, je souhaite vous faire entrer dans le processus de création.</p>
+        <p>
+          Vous pouvez arriver avec une idée très précise, quelques images, un souvenir, une envie… ou simplement avec l’intuition de vouloir un bijou différent.
+        </p>
+        <p>
+          Mon rôle est de vous écouter, de comprendre ce que vous souhaitez exprimer et de transformer tout cela en une création qui vous ressemble.
+        </p>
+        <p>Parce qu'un bijou que l'on porte longtemps est, à mes yeux, un bijou dans lequel on se reconnaît.</p>
+      </section>
+
+      <section>
+        <h2>Moi, Anaïs</h2>
+        <p>Je suis à la fois la créatrice, la dessinatrice et la conceptrice 3D derrière Sïana Joaillerie.</p>
+        <p>
+          J’aime autant la précision technique que la recherche créative, mais ce qui me passionne vraiment, c’est <strong>le moment où une idée devient une forme, puis une pièce que vous pourrez réellement porter</strong>.
+        </p>
+        <p>
+          Chaque création est pour moi une petite aventure : imaginer, dessiner, chercher, ajuster… jusqu'à ce que tout trouve sa place.
+        </p>
+        <p><strong>Et si votre prochain bijou commençait par une idée ?</strong></p>
+        <p>Bienvenue dans mon univers.</p>
+        <p><strong>Bienvenue chez Sïana Joaillerie.</strong></p>
+      </section>
+    </div>
+  </article>
 
   <section class="c-section">
     <UiSectionIntro
-      kicker="Témoignages"
-      title="Vos mots, ma plus belle récompense"
+      kicker="Portfolio"
+      title="Des créations qui ont une histoire"
+      lead="Alliances, bijou de famille, prototype : chaque pièce commence par une rencontre."
+      :cta="{ label: 'Voir le portfolio', href: '/portfolio', variant: 'primary' }"
     />
+    <UiCards :items="cards" />
   </section>
-  <UiQuotes :items="quotes" />
 
-  <UiNewsletter
-    title="Rejoignez l’univers Sïana"
-    lead="Recevez les nouveautés, les coulisses de l’atelier et des inspirations autour des pierres et des cycles de la nature."
+  <UiSplit
+    id="invitation"
+    image="/portfolio/demi-soleil.jpeg"
+    image-label="Main portant la bague demi-soleil, diamants navette en or jaune"
+    kicker="Sur-mesure"
+    title="Et si votre prochain bijou commençait par une idée ?"
+    lead="Quelques questions pour reconnaître un style de bijou, puis une rencontre avec Anaïs."
+    :cta="{ label: 'Commencer le quiz', href: '/sur-mesure', variant: 'primary' }"
   />
 </template>
 
 <style lang="scss">
-/* L’accueil est assemblé avec les classes c-*. */
+.c-about {
+  padding: 1.5rem 6vw 3rem;
+
+  &__text {
+    max-width: 40rem;
+
+    h2 {
+      margin: 2rem 0 0.7rem;
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 500;
+    }
+
+    p {
+      margin: 0 0 0.85rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+  }
+}
 </style>
