@@ -1,0 +1,26 @@
+<mjml lang="fr">
+  <mj-head>
+    <mj-title>Bienvenue dans l’univers Sïana</mj-title>
+    <mj-preview>Les nouveautés et les coulisses de l’atelier, de temps en temps.</mj-preview>
+    <mj-include path="./partials/attributes.mjml" />
+  </mj-head>
+  <mj-body background-color="#f5e0cb" width="600px">
+    <mj-include path="./partials/header.mjml" />
+    <mj-section background-color="#f5e0cb" padding="36px 32px 8px">
+      <mj-column>
+        <mj-text mj-class="kicker">Infolettre</mj-text>
+        <mj-text mj-class="title">Bienvenue dans l’univers Sïana</mj-text>
+        <mj-text padding="0 0 16px">Bonjour,</mj-text>
+        <mj-text padding="0 0 16px">Vous recevrez les nouveautés et les coulisses de l’atelier.</mj-text>
+        <mj-text padding="0">Des bijoux imaginés pour raconter ce qui vous rend unique. Chaque pièce commence par une rencontre : une idée, quelques images, un souvenir, ou simplement une envie.</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#f5e0cb" padding="12px 32px 32px">
+      <mj-column>
+        <mj-button href="{{quiz_url}}">Commencer le quiz</mj-button>
+        <mj-text align="center" color="#ae6868" font-size="13px" line-height="20px" padding="8px 0 0"><a href="{{desinscription_url}}" style="color:#ae6868;">Ne plus recevoir ces messages</a></mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-include path="./partials/footer.mjml" />
+  </mj-body>
+</mjml>

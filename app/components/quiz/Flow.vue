@@ -1,5 +1,6 @@
 <script setup>
-import { results, trackQuiz } from "#shared/utils/quiz";
+/** @spec [[fsd-quiz-style]] */
+import { results } from "#shared/utils/quiz";
 
 const {
   labels,
@@ -8,33 +9,37 @@ const {
   fieldErrors,
   choiceError,
   saveError,
-  submitted,
   pending,
   ready,
   etape,
   questionIndex,
   styleId,
+  appointmentUrl,
   options,
   prompt,
   setAnswer,
+  startQuiz,
   continueQuestion,
   markFormStarted,
   submitForm,
   retryDelivery,
   goBack,
+  trackAppointment,
 } = useQuiz();
 
 const pageTitle = computed(() => {
-  if (etape.value === "resultat" && ready.value) return results[styleId.value].title;
+  if (etape.value === "resultat" && ready.value && styleId.value) return results[styleId.value].title;
   if (etape.value === "coordonnees") return "Votre style est presque révélé…";
   if (/^[1-9]$/.test(etape.value)) return prompt.value;
   return "Quel style de bijou vous ressemble ?";
 });
 
-const resultHref = computed(() => `/contact?style=${styleId.value}`);
-
 function chosen(option) {
   return labels.value[questionIndex.value] === option.label;
+}
+
+function optionName(option) {
+  return option.note ? `${option.label}, ${option.note}` : option.label;
 }
 </script>
 
@@ -57,17 +62,17 @@ function chosen(option) {
           <span :style="{ width: `${(Number(etape) / 9) * 100}%` }" />
         </div>
         <h1 id="quiz-title" tabindex="-1" class="c-title">{{ pageTitle }}</h1>
-        <p v-if="etape === 'intro'" class="c-lead">
-          Quelques questions pour découvrir l’univers joaillier qui vous correspond le mieux.
-          Répondez spontanément. Il n’y a pas de bonne ou de mauvaise réponse.
-        </p>
+        <template v-if="etape === 'intro'">
+          <p class="c-lead">Quelques questions pour découvrir l’univers joaillier qui vous correspond le mieux.</p>
+          <p class="c-lead">Répondez spontanément. Il n’y a pas de bonne ou de mauvaise réponse.</p>
+        </template>
         <p v-else-if="etape === 'coordonnees'" class="c-lead">
           Pour découvrir votre résultat et recevoir une expérience personnalisée autour de votre style joaillier, renseignez vos coordonnées.
         </p>
       </header>
 
       <div v-if="etape === 'intro'">
-        <UiBtn label="Commencer le quiz" href="/sur-mesure?etape=1" />
+        <UiBtn label="Commencer le quiz" type="button" @click="startQuiz" />
       </div>
 
       <form
@@ -90,7 +95,8 @@ function chosen(option) {
                 :name="`question-${etape}`"
                 :value="option.label"
                 :checked="chosen(option)"
-                @change="setAnswer(questionIndex, option.style, option.label)"
+                :aria-label="optionName(option)"
+                @change="setAnswer(questionIndex, option.label)"
               >
               <span
                 v-if="option.swatch"
@@ -106,7 +112,7 @@ function chosen(option) {
             </label>
           </div>
         </fieldset>
-        <p v-if="choiceError" class="c-field-error" role="alert">{{ choiceError }}</p>
+        <p v-if="choiceError" id="quiz-choice-error" class="c-field-error" role="alert" tabindex="-1">{{ choiceError }}</p>
         <div class="c-quiz-actions">
           <UiBtn label="Continuer" type="submit" />
           <button type="button" class="c-quiz-back" @click="goBack">Retour</button>
@@ -117,8 +123,9 @@ function chosen(option) {
         v-else-if="ready && etape === 'coordonnees'"
         class="c-form c-quiz-step"
         novalidate
+        :aria-busy="pending ? 'true' : undefined"
         @submit.prevent="submitForm"
-        @focusin="markFormStarted"
+        @input="markFormStarted"
       >
         <UiField
           v-model="form.prenom"
@@ -157,9 +164,6 @@ function chosen(option) {
           required
           :error="fieldErrors.date"
         />
-        <p class="c-fine">
-          Votre prénom, votre nom, votre e-mail, la date et le style obtenu sont transmis à Anaïs pour préparer un échange. Pas d’infolettre.
-        </p>
         <div class="c-hp" hidden>
           <label>
             Société
@@ -168,7 +172,7 @@ function chosen(option) {
         </div>
         <div class="c-quiz-actions">
           <UiBtn
-            :label="pending ? 'Envoi…' : (submitted ? 'Voir mon résultat' : 'Découvrir mon style')"
+            :label="pending ? 'Découverte en cours…' : 'Découvrir mon style'"
             type="submit"
             :disabled="pending"
           />
@@ -176,16 +180,24 @@ function chosen(option) {
         </div>
       </form>
 
-      <article v-else-if="ready && etape === 'resultat'" :class="['c-result', `c-result-${styleId}`]">
+      <article v-else-if="ready && etape === 'resultat' && styleId" :class="['c-result', 'c-quiz-step', `c-result-${styleId}`]">
         <p class="c-lead">{{ results[styleId].text }}</p>
         <p class="c-lead">Votre style vous ressemble. Et si nous imaginions maintenant le bijou qui vous ressemble vraiment ?</p>
         <p v-if="saveError" class="c-field-error" role="alert">
-          Le résultat est affiché. L’envoi des coordonnées n’a pas abouti : vous pouvez réessayer, ou écrire via le formulaire de contact.
+          Le résultat est affiché. L’envoi des coordonnées n’a pas abouti : vous pouvez réessayer.
         </p>
         <div class="c-quiz-actions">
-          <NuxtLink class="c-btn c-btn-inverse" :to="resultHref" @click="trackQuiz('parlons')">
+          <a
+            v-if="appointmentUrl"
+            class="c-btn c-btn-inverse"
+            :href="appointmentUrl"
+            @click="trackAppointment"
+          >
             Parlons de votre projet
-          </NuxtLink>
+          </a>
+          <button v-else class="c-btn c-btn-inverse" type="button" disabled>
+            Parlons de votre projet
+          </button>
           <button
             v-if="saveError"
             class="c-quiz-back"
@@ -193,7 +205,7 @@ function chosen(option) {
             :disabled="pending"
             @click="retryDelivery"
           >
-            {{ pending ? "Envoi…" : "Renvoyer mes coordonnées" }}
+            {{ pending ? "Découverte en cours…" : "Renvoyer mes coordonnées" }}
           </button>
         </div>
       </article>

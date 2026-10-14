@@ -15,7 +15,8 @@ relates_to:
   - "[[TOKENS]]"
 prev:
   - "[[discussion-quiz-style]]"
-next: []
+next:
+  - "[[tsd-quiz-style]]"
 glossary:
   - "[[style-de-bijou]]"
   - "[[style-chaleureux]]"
@@ -25,8 +26,16 @@ glossary:
 governed_by:
   - "[[GOAL]]"
   - "[[GUIDELINES]]"
-code_paths: []
-test_paths: []
+code_paths:
+  - app/pages/quiz.vue
+  - app/components/quiz/Flow.vue
+  - app/composables/useQuiz.js
+  - shared/utils/quiz.js
+  - shared/utils/fields.js
+  - server/api/quiz.post.js
+  - server/utils/quiz-db.js
+test_paths:
+  - scripts/quiz-score.test.mjs
 ---
 
 # FSD — Quiz « Quel style de bijou vous ressemble ? »

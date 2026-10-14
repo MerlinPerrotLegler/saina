@@ -606,7 +606,14 @@
 }
 
 .c-quiz {
+  width: 100%;
   max-width: 40rem;
+  margin-inline: auto;
+}
+
+#quiz-title:focus {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 4px;
 }
 
 .c-progress {

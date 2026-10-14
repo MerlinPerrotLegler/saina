@@ -1,40 +1,62 @@
 import assert from "node:assert/strict";
-import { scoreQuiz } from "../shared/utils/quiz.js";
+import { dateError, emailError } from "../shared/utils/fields.js";
+import { quizDestination, scoreQuiz, stylesFor } from "../shared/utils/quiz.js";
 
-const chaleureux = Array(9).fill("chaleureux");
-const elegant = Array(9).fill("elegant");
-const sensible = Array(9).fill("sensible");
-const instinctif = Array(9).fill("instinctif");
+const paths = {
+  A: ["Or jaune", "Brillante / clinquante", "Feu", "Forme libre", "Ornemental", "Pour les célébrations", "Joie", "Amitié", "Rouge"],
+  B: ["Or gris", "Mate", "Air", "Ovale", "Minimaliste", "Tous les jours", "Calme", "Passage de vie", "Blanc"],
+  C: ["Or rose", "Lumineuse", "Eau", "Ronde", "Symbolique", "Comme une œuvre", "Passion", "Amour", "Bleu"],
+  D: ["Platine", "Brute", "Terre", "Carrée", "Architectural", "Comme un talisman", "Liberté", "Force personnelle", "Vert"],
+  E: ["Or jaune", "Mate", "Feu", "Ovale", "Ornemental", "Tous les jours", "Passion", "Amour", "Vert"],
+};
 
-assert.equal(scoreQuiz(chaleureux), "chaleureux");
-assert.equal(scoreQuiz(elegant), "elegant");
-assert.equal(scoreQuiz(sensible), "sensible");
-assert.equal(scoreQuiz(instinctif), "instinctif");
+assert.deepEqual(stylesFor(paths.A), Array(9).fill("chaleureux"));
+assert.equal(scoreQuiz(stylesFor(paths.A)), "chaleureux");
+assert.equal(scoreQuiz(stylesFor(paths.B)), "elegant");
+assert.equal(scoreQuiz(stylesFor(paths.C)), "sensible");
+assert.equal(scoreQuiz(stylesFor(paths.D)), "instinctif");
+assert.equal(scoreQuiz(stylesFor(paths.E)), "elegant");
 
-const tieReadFromQuestion8 = [
-  "chaleureux", "chaleureux", "chaleureux", "chaleureux",
-  "elegant", "elegant", "elegant", "elegant",
-  "sensible",
-];
-assert.equal(scoreQuiz(tieReadFromQuestion8), "elegant");
+const changed = paths.B.slice();
+changed[0] = "Or jaune";
+assert.deepEqual(stylesFor(changed).filter((style) => style === "chaleureux"), ["chaleureux"]);
+assert.equal(scoreQuiz(stylesFor(changed)), "elegant");
 
-const tieOtherWay = [
-  "elegant", "elegant", "elegant", "elegant",
-  "chaleureux", "chaleureux", "chaleureux", "chaleureux",
-  "sensible",
-];
-assert.equal(scoreQuiz(tieOtherWay), "chaleureux");
+assert.equal(emailError(""), "Indiquez votre adresse e-mail.");
+assert.equal(emailError("anais@"), "Cette adresse e-mail n'est pas valide.");
+assert.equal(emailError("ana@siana.fr"), "");
+assert.equal(dateError(""), "Indiquez la date du mariage ou de l'événement.");
+assert.equal(dateError("2026-02-31"), "Cette date n'est pas valide.");
+assert.equal(dateError("2026-06-12"), "");
 
-const changed = [...tieReadFromQuestion8];
-changed[7] = "chaleureux";
-assert.equal(scoreQuiz(changed), "chaleureux");
+assert.equal(quizDestination("/quiz/resultat/chaleureux", {
+  labels: Array(9).fill(null),
+  submitted: false,
+  formOk: false,
+}), "/quiz");
 
-const question9BreaksByPoint = [
-  "chaleureux", "chaleureux", "chaleureux",
-  "elegant", "elegant", "elegant",
-  "sensible", "instinctif",
-  "chaleureux",
-];
-assert.equal(scoreQuiz(question9BreaksByPoint), "chaleureux");
+assert.equal(quizDestination("/quiz/question/5", {
+  labels: ["Or jaune", null, null, null, null, null, null, null, null],
+  submitted: false,
+  formOk: false,
+}), "/quiz/question/2");
+
+assert.equal(quizDestination("/quiz/coordonnees", {
+  labels: paths.A,
+  submitted: false,
+  formOk: false,
+}), "");
+
+assert.equal(quizDestination("/quiz/resultat/chaleureux", {
+  labels: paths.B,
+  submitted: true,
+  formOk: true,
+}), "/quiz/resultat/elegant");
+
+assert.equal(quizDestination("/quiz/nulle-part", {
+  labels: paths.A,
+  submitted: true,
+  formOk: true,
+}), "/quiz");
 
 console.log("quiz score ok");

@@ -1,0 +1,10 @@
+<mj-attributes>
+  <mj-all font-family="'Century Gothic', 'Avenir Next', Futura, Arial, sans-serif" />
+  <mj-text color="#3e1f24" font-size="16px" line-height="26px" />
+  <mj-class name="title" align="center" color="#3e1f24" font-family="Palatino, 'Palatino Linotype', Georgia, serif" font-size="28px" font-weight="500" line-height="34px" padding="0 0 16px" />
+  <mj-class name="kicker" align="center" color="#ae6868" font-size="12px" font-weight="500" letter-spacing="2px" line-height="16px" padding="0 0 10px" text-transform="uppercase" />
+  <mj-button align="center" background-color="#ae6868" border-radius="999px" color="#f5e0cb" font-family="'Century Gothic', 'Avenir Next', Futura, Arial, sans-serif" font-size="12px" font-weight="500" inner-padding="16px 26px" letter-spacing="1px" padding="8px 0 12px" text-transform="uppercase" />
+</mj-attributes>
+<mj-style inline="inline">
+  .message { white-space: pre-line; }
+</mj-style>

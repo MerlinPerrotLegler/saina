@@ -1,0 +1,7 @@
+<mj-section background-color="#3e1f24" padding="28px 32px 32px">
+  <mj-column>
+    <mj-text align="center" color="#f5e0cb" font-size="14px" line-height="22px" padding="0 0 14px">Des bijoux imaginés pour raconter ce qui vous rend unique.</mj-text>
+    <mj-text align="center" color="#f5e0cb" font-size="13px" line-height="20px" padding="0 0 4px"><a href="mailto:anaisgrazzini@gmail.com" style="color:#f5e0cb;text-decoration:underline;">anaisgrazzini@gmail.com</a></mj-text>
+    <mj-text align="center" color="#a19ebb" font-size="13px" line-height="20px" padding="0">+33 06 29 67 93 67</mj-text>
+  </mj-column>
+</mj-section>

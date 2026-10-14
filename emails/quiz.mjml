@@ -1,0 +1,26 @@
+<mjml lang="fr">
+  <mj-head>
+    <mj-title>Votre style de bijou</mj-title>
+    <mj-preview>Le style de bijou qui vous correspond, et une invitation à en parler avec Anaïs.</mj-preview>
+    <mj-include path="./partials/attributes.mjml" />
+  </mj-head>
+  <mj-body background-color="#f5e0cb" width="600px">
+    <mj-include path="./partials/header.mjml" />
+    <mj-section background-color="#f5e0cb" padding="36px 32px 8px">
+      <mj-column>
+        <mj-text mj-class="kicker">Quiz</mj-text>
+        <mj-text mj-class="title">{{style_titre}}</mj-text>
+        <mj-text padding="0 0 16px">Bonjour {{prenom}},</mj-text>
+        <mj-text padding="0 0 16px">{{style_texte}}</mj-text>
+        <mj-text padding="0 0 8px">Votre style vous ressemble. Et si nous imaginions maintenant le bijou qui vous ressemble vraiment ?</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#f5e0cb" padding="8px 32px 28px">
+      <mj-column>
+        <mj-button href="{{contact_url}}">Parlons de votre projet</mj-button>
+        <mj-text align="center" color="#ae6868" font-size="13px" line-height="20px" padding="4px 0 0">Date du mariage ou de l’événement : {{date}}</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-include path="./partials/footer.mjml" />
+  </mj-body>
+</mjml>

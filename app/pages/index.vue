@@ -40,7 +40,7 @@ const cards = pieces.map((piece) => ({
     kicker="Joaillerie de transmission"
     :title="['Je suis Anaïs,', 'fondatrice de', 'Sïana Joaillerie']"
     lead="Des bijoux imaginés pour raconter ce qui vous rend unique."
-    :cta="{ label: 'Imaginer un bijou', href: '/sur-mesure' }"
+    :cta="{ label: 'Imaginer un bijou', href: '/quiz' }"
   />
 
   <UiBand class="bg-creme text-terracotta" label="Réassurance" :items="reassures" />
@@ -126,7 +126,7 @@ const cards = pieces.map((piece) => ({
     kicker="Sur-mesure"
     title="Et si votre prochain bijou commençait par une idée ?"
     lead="Quelques questions pour reconnaître un style de bijou, puis une rencontre avec Anaïs."
-    :cta="{ label: 'Commencer le quiz', href: '/sur-mesure', variant: 'primary' }"
+    :cta="{ label: 'Commencer le quiz', href: '/quiz', variant: 'primary' }"
   />
 </template>
 

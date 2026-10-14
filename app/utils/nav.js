@@ -1,6 +1,6 @@
 export const mainNav = [
   { label: "Histoire", href: "/" },
-  { label: "Sur-mesure", href: "/sur-mesure" },
+  { label: "Sur-mesure", href: "/quiz" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Contact", href: "/contact" },
 ];

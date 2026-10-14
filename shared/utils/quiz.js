@@ -119,6 +119,50 @@ export const styleLabels = {
   instinctif: "instinctif",
 };
 
+export function stylesFor(labels) {
+  const list = Array.isArray(labels) ? labels : [];
+  return Array.from({ length: 9 }, (_, index) => {
+    const label = list[index];
+    if (typeof label !== "string" || !label) return null;
+    const bank = index === 8 ? stones : questions[index].options;
+    return bank.find((option) => option.label === label)?.style || null;
+  });
+}
+
+export function stepFromPath(path) {
+  const clean = String(path || "").replace(/\/$/, "") || "/";
+  if (clean === "/quiz") return "intro";
+  const question = clean.match(/^\/quiz\/question\/([1-9])$/);
+  if (question) return question[1];
+  if (clean === "/quiz/coordonnees") return "coordonnees";
+  if (/^\/quiz\/resultat\/(chaleureux|elegant|sensible|instinctif)$/.test(clean)) return "resultat";
+  return "";
+}
+
+/** @returns {string} chemin de correction, ou vide si l’étape est autorisée */
+export function quizDestination(path, { labels, submitted, formOk }) {
+  const step = stepFromPath(path);
+  if (!step) return "/quiz";
+  const styles = stylesFor(labels);
+  const missing = styles.findIndex((style) => !style);
+  if (/^[1-9]$/.test(step)) {
+    const index = Number(step) - 1;
+    if (missing !== -1 && missing < index) return `/quiz/question/${missing + 1}`;
+    return "";
+  }
+  if (step === "coordonnees") {
+    if (missing !== -1) return `/quiz/question/${missing + 1}`;
+    return "";
+  }
+  if (step === "resultat") {
+    if (missing !== -1 || !submitted || !formOk) return "/quiz";
+    const style = scoreQuiz(styles);
+    if (!String(path).replace(/\/$/, "").endsWith(`/${style}`)) return `/quiz/resultat/${style}`;
+    return "";
+  }
+  return "";
+}
+
 /**
  * Score le plus haut, puis départage de la question 8 vers la question 1.
  * Les points de la question 9 sont déjà dans les compteurs.

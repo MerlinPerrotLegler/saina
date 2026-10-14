@@ -1,12 +1,20 @@
-import { isEmail, isValidDate } from "#shared/utils/fields";
-import { questions, scoreQuiz, stones, STYLE_IDS, trackQuiz } from "#shared/utils/quiz";
+import { dateError, emailError, isValidDate } from "#shared/utils/fields";
+import {
+  questions,
+  quizDestination,
+  scoreQuiz,
+  stepFromPath,
+  stones,
+  stylesFor,
+  trackQuiz,
+} from "#shared/utils/quiz";
 
-const STORAGE_KEY = "siana-quiz-v1";
+const STORAGE_KEY = "siana-quiz-v2";
 
 export function useQuiz() {
   const route = useRoute();
   const router = useRouter();
-  const answers = ref(Array(9).fill(null));
+  const config = useRuntimeConfig();
   const labels = ref(Array(9).fill(null));
   const form = reactive({ prenom: "", nom: "", email: "", date: "" });
   const societe = ref("");
@@ -18,27 +26,20 @@ export function useQuiz() {
   const pending = ref(false);
   const ready = ref(false);
   const formStarted = ref(false);
-  const seen = new Set();
 
-  const etape = computed(() => {
-    const value = route.query.etape;
-    const raw = Array.isArray(value) ? value[0] : value;
-    return raw || "intro";
-  });
-  const questionIndex = computed(() => Number(etape.value) - 1);
-  const styleId = computed(() => scoreQuiz(answers.value));
+  const etape = computed(() => stepFromPath(route.path));
+  const questionIndex = computed(() => (/^[1-9]$/.test(etape.value) ? Number(etape.value) - 1 : -1));
+  const styles = computed(() => stylesFor(labels.value));
+  const styleId = computed(() => (styles.value.every(Boolean) ? scoreQuiz(styles.value) : ""));
+  const appointmentUrl = computed(() => String(config.public.appointmentUrl || ""));
 
-  function once(name, detail = {}) {
-    const key = `${name}:${JSON.stringify(detail)}`;
-    if (seen.has(key)) return;
-    seen.add(key);
-    trackQuiz(name, detail);
+  function formOk() {
+    return Boolean(form.prenom.trim() && form.nom.trim() && !emailError(form.email) && isValidDate(form.date));
   }
 
   function persist() {
     if (!import.meta.client || !ready.value) return;
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
-      answers: answers.value,
       labels: labels.value,
       form: {
         prenom: form.prenom,
@@ -56,11 +57,14 @@ export function useQuiz() {
       const raw = sessionStorage.getItem(STORAGE_KEY);
       if (!raw) return;
       const data = JSON.parse(raw);
-      if (Array.isArray(data.answers) && data.answers.length === 9) {
-        answers.value = data.answers.map((item) => (STYLE_IDS.includes(item) ? item : null));
-      }
-      if (Array.isArray(data.labels) && data.labels.length === 9) {
-        labels.value = data.labels.map((item) => (typeof item === "string" ? item : null));
+      if (Array.isArray(data.labels)) {
+        const known = new Set(
+          [...questions.flatMap((question) => question.options), ...stones].map((option) => option.label),
+        );
+        labels.value = Array.from({ length: 9 }, (_, index) => {
+          const label = data.labels[index];
+          return typeof label === "string" && known.has(label) ? label : null;
+        });
       }
       if (data.form && typeof data.form === "object") {
         form.prenom = String(data.form.prenom || "").slice(0, 80);
@@ -75,99 +79,93 @@ export function useQuiz() {
     }
   }
 
-  function formValid() {
-    return form.prenom.trim()
-      && form.nom.trim()
-      && isEmail(form.email)
-      && isValidDate(form.date);
-  }
-
-  function firstMissing() {
-    return answers.value.findIndex((answer) => !answer);
-  }
-
-  function ensureStep() {
-    const step = etape.value;
-    const known = step === "intro" || step === "coordonnees" || step === "resultat" || /^[1-9]$/.test(step);
-    if (!known) {
-      router.replace({ path: "/sur-mesure" });
-      return;
-    }
-    const missing = firstMissing();
-    if ((step === "coordonnees" || step === "resultat") && missing !== -1) {
-      router.replace({ query: { etape: String(missing + 1) } });
-      return;
-    }
-    if (step === "resultat" && (!submitted.value || !formValid())) {
-      submitted.value = false;
-      router.replace({ query: { etape: "coordonnees" } });
-    }
+  async function ensureStep() {
+    const target = quizDestination(route.path, {
+      labels: labels.value,
+      submitted: submitted.value,
+      formOk: formOk(),
+    });
+    if (!target || target === route.path) return;
+    await router.replace(target);
   }
 
   function noteStep(step) {
-    if (step === "intro") once("affichage");
-    else if (/^[1-9]$/.test(step)) {
-      once("demarrage");
-      once("progression", { question: Number(step) });
-      if (step === "9") once("question-pierre");
-    } else if (step === "coordonnees") once("formulaire");
-    else if (step === "resultat") once("resultat", { style: styleId.value });
+    if (step === "intro") trackQuiz("quiz_view");
+    else if (/^[1-9]$/.test(step)) trackQuiz("quiz_progress", { question: Number(step) });
+    else if (step === "coordonnees") trackQuiz("quiz_form_view");
+    else if (step === "resultat" && styleId.value) trackQuiz("quiz_result", { style: styleId.value });
   }
 
   function focusStep() {
-    const target = document.getElementById("quiz-question") || document.getElementById("quiz-title");
+    const target = choiceError.value
+      ? document.getElementById("quiz-choice-error")
+      : document.getElementById("quiz-title");
     target?.focus();
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    target?.scrollIntoView({ block: "start", behavior: motion });
   }
 
-  function setAnswer(index, style, label) {
-    const nextAnswers = answers.value.slice();
-    const nextLabels = labels.value.slice();
-    nextAnswers[index] = style;
-    nextLabels[index] = label;
-    answers.value = nextAnswers;
-    labels.value = nextLabels;
+  function setAnswer(index, label) {
+    const next = labels.value.slice();
+    next[index] = label;
+    labels.value = next;
     choiceError.value = "";
-    trackQuiz("reponse", { question: index + 1, style });
   }
 
-  function continueQuestion() {
+  function startQuiz() {
+    trackQuiz("quiz_start");
+    router.push("/quiz/question/1");
+  }
+
+  async function continueQuestion() {
     const index = questionIndex.value;
-    if (!answers.value[index]) {
+    if (!labels.value[index]) {
       choiceError.value = "Choisissez une réponse pour continuer.";
+      await nextTick();
+      document.getElementById("quiz-choice-error")?.focus();
       return;
     }
-    const next = index === 8 ? "coordonnees" : String(index + 2);
-    router.push({ query: { etape: next } });
+    trackQuiz("quiz_answer", {
+      question: index + 1,
+      choice: labels.value[index],
+      style: styles.value[index],
+    });
+    const next = index === 8 ? "/quiz/coordonnees" : `/quiz/question/${index + 2}`;
+    await router.push(next);
   }
 
   function markFormStarted() {
     if (formStarted.value) return;
     formStarted.value = true;
-    trackQuiz("formulaire-commence");
+    trackQuiz("quiz_form_start");
   }
 
   function validateForm() {
     fieldErrors.prenom = form.prenom.trim() ? "" : "Indiquez votre prénom.";
     fieldErrors.nom = form.nom.trim() ? "" : "Indiquez votre nom.";
-    fieldErrors.email = isEmail(form.email) ? "" : "Indiquez une adresse e-mail valide.";
-    fieldErrors.date = isValidDate(form.date) ? "" : "Indiquez une date valide.";
+    fieldErrors.email = emailError(form.email);
+    fieldErrors.date = dateError(form.date);
     return !fieldErrors.prenom && !fieldErrors.nom && !fieldErrors.email && !fieldErrors.date;
   }
 
   async function deliver() {
     saveError.value = false;
     try {
-      await $fetch("/api/quiz", {
+      const response = await $fetch("/api/quiz", {
         method: "POST",
         body: {
           prenom: form.prenom.trim(),
           nom: form.nom.trim(),
           email: form.email.trim(),
           date: form.date,
-          answers: answers.value,
+          answers: labels.value,
           societe: societe.value,
         },
       });
+      if (response?.style && response.style !== styleId.value) {
+        saveError.value = true;
+        return;
+      }
       delivered.value = true;
     } catch {
       saveError.value = true;
@@ -177,16 +175,17 @@ export function useQuiz() {
   async function submitForm() {
     if (pending.value) return;
     if (!validateForm()) return;
+    if (styles.value.some((style) => !style)) return;
     if (submitted.value && delivered.value) {
-      await router.push({ query: { etape: "resultat" } });
+      await router.replace(`/quiz/resultat/${styleId.value}`);
       return;
     }
     pending.value = true;
     try {
       submitted.value = true;
-      once("formulaire-valide");
+      trackQuiz("quiz_form_submit", { style: styleId.value });
       await deliver();
-      await router.push({ query: { etape: "resultat" } });
+      await router.replace(`/quiz/resultat/${styleId.value}`);
     } finally {
       pending.value = false;
     }
@@ -202,34 +201,35 @@ export function useQuiz() {
     }
   }
 
-  function previousHref() {
-    const step = etape.value;
-    if (step === "1") return "/sur-mesure";
-    if (step === "coordonnees") return "/sur-mesure?etape=9";
-    if (/^[2-9]$/.test(step)) return `/sur-mesure?etape=${Number(step) - 1}`;
-    return "/sur-mesure";
-  }
-
   function goBack() {
-    router.push(previousHref());
+    const step = etape.value;
+    if (step === "1") router.push("/quiz");
+    else if (step === "coordonnees") router.push("/quiz/question/9");
+    else if (/^[2-9]$/.test(step)) router.push(`/quiz/question/${Number(step) - 1}`);
   }
 
-  onMounted(() => {
+  function trackAppointment() {
+    trackQuiz("quiz_cta_appointment", { style: styleId.value });
+  }
+
+  onMounted(async () => {
     restore();
-    if (submitted.value && !formValid()) submitted.value = false;
+    if (submitted.value && !formOk()) submitted.value = false;
+    await ensureStep();
     ready.value = true;
-    ensureStep();
     noteStep(etape.value);
+    await nextTick();
+    focusStep();
   });
 
-  watch([answers, labels, submitted, delivered], persist);
+  watch([labels, submitted, delivered], persist);
   watch(() => [form.prenom, form.nom, form.email, form.date], persist);
 
   watch(etape, async (step, previous) => {
     if (!ready.value || step === previous) return;
     choiceError.value = "";
-    ensureStep();
-    noteStep(step);
+    await ensureStep();
+    noteStep(etape.value);
     await nextTick();
     focusStep();
   });
@@ -247,7 +247,6 @@ export function useQuiz() {
   });
 
   return {
-    answers,
     labels,
     form,
     societe,
@@ -255,20 +254,21 @@ export function useQuiz() {
     choiceError,
     saveError,
     submitted,
-    delivered,
     pending,
     ready,
     etape,
     questionIndex,
     styleId,
+    appointmentUrl,
     options,
     prompt,
     setAnswer,
+    startQuiz,
     continueQuestion,
     markFormStarted,
     submitForm,
     retryDelivery,
-    previousHref,
     goBack,
+    trackAppointment,
   };
 }

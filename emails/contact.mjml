@@ -1,0 +1,30 @@
+<mjml lang="fr">
+  <mj-head>
+    <mj-title>Votre message est bien arrivé</mj-title>
+    <mj-preview>Anaïs a bien reçu votre message et vous répondra.</mj-preview>
+    <mj-include path="./partials/attributes.mjml" />
+  </mj-head>
+  <mj-body background-color="#f5e0cb" width="600px">
+    <mj-include path="./partials/header.mjml" />
+    <mj-section background-color="#f5e0cb" padding="36px 32px 8px">
+      <mj-column>
+        <mj-text mj-class="kicker">Contact</mj-text>
+        <mj-text mj-class="title">Votre message est bien arrivé</mj-text>
+        <mj-text padding="0 0 16px">Bonjour {{prenom}},</mj-text>
+        <mj-text padding="0 0 16px">Votre message est bien arrivé. Anaïs le lira et vous répondra.</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#f5e0cb" padding="0 32px 8px">
+      <mj-column background-color="#ffffff" padding="20px 22px">
+        <mj-text color="#ae6868" font-size="12px" font-weight="500" letter-spacing="1px" padding="0 0 10px" text-transform="uppercase">Votre message</mj-text>
+        <mj-text css-class="message" padding="0">{{message}}</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#f5e0cb" padding="16px 32px 36px">
+      <mj-column>
+        <mj-text color="#ae6868" font-size="13px" line-height="20px" padding="0">Votre adresse n’est pas utilisée pour une infolettre.</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-include path="./partials/footer.mjml" />
+  </mj-body>
+</mjml>
