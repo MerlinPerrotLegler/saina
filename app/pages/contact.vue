@@ -144,6 +144,7 @@ async function onSubmit() {
 
 <template>
   <div class="c-sheet">
+    <div class="c-contact">
     <div class="c-sheet-narrow">
       <header class="c-sheet-intro">
         <p class="c-kicker">Contact</p>
@@ -209,6 +210,15 @@ async function onSubmit() {
         <p v-if="formError" class="c-field-error" role="alert">{{ formError }}</p>
         <UiBtn :label="pending ? 'Envoi…' : 'Envoyer'" type="submit" :disabled="pending" />
       </form>
+    </div>
+    <figure class="c-contact-photo">
+      <img
+        src="/brand/photo-anais.jpeg"
+        alt="Anaïs assise, fondatrice de Sïana"
+        width="1200"
+        height="1600"
+      >
+    </figure>
     </div>
   </div>
 </template>

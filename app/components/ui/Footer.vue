@@ -14,7 +14,7 @@ defineProps({
     default: () => [
       {
         title: "Navigation",
-        links: mainNav,
+        links: [...mainNav, { label: "Mariage", href: "/mariage" }],
       },
     ],
   },

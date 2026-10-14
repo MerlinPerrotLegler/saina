@@ -1,7 +1,9 @@
 import { dateError, emailError, isValidDate } from "#shared/utils/fields";
 import {
   questions,
+  quizBase,
   quizDestination,
+  quizKind,
   scoreQuiz,
   stepFromPath,
   stones,
@@ -9,37 +11,44 @@ import {
   trackQuiz,
 } from "#shared/utils/quiz";
 
-const STORAGE_KEY = "siana-quiz-v2";
-
 export function useQuiz() {
   const route = useRoute();
   const router = useRouter();
-  const config = useRuntimeConfig();
   const labels = ref(Array(9).fill(null));
   const form = reactive({ prenom: "", nom: "", email: "", date: "" });
   const societe = ref("");
   const fieldErrors = reactive({ prenom: "", nom: "", email: "", date: "" });
   const choiceError = ref("");
   const saveError = ref(false);
+  const contactError = ref(false);
   const submitted = ref(false);
   const delivered = ref(false);
+  const contacted = ref(false);
+  const leadId = ref("");
   const pending = ref(false);
   const ready = ref(false);
   const formStarted = ref(false);
 
+  const base = computed(() => quizBase(route.path));
+  const kind = computed(() => quizKind(route.path));
+  const asksDate = computed(() => kind.value === "mariage");
   const etape = computed(() => stepFromPath(route.path));
   const questionIndex = computed(() => (/^[1-9]$/.test(etape.value) ? Number(etape.value) - 1 : -1));
   const styles = computed(() => stylesFor(labels.value));
   const styleId = computed(() => (styles.value.every(Boolean) ? scoreQuiz(styles.value) : ""));
-  const appointmentUrl = computed(() => String(config.public.appointmentUrl || ""));
+  function storageKey() {
+    return `siana-quiz-v3-${kind.value}`;
+  }
 
   function formOk() {
-    return Boolean(form.prenom.trim() && form.nom.trim() && !emailError(form.email) && isValidDate(form.date));
+    const identity = Boolean(form.prenom.trim() && form.nom.trim() && !emailError(form.email));
+    if (!asksDate.value) return identity;
+    return identity && isValidDate(form.date);
   }
 
   function persist() {
     if (!import.meta.client || !ready.value) return;
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
+    sessionStorage.setItem(storageKey(), JSON.stringify({
       labels: labels.value,
       form: {
         prenom: form.prenom,
@@ -49,12 +58,14 @@ export function useQuiz() {
       },
       submitted: submitted.value,
       delivered: delivered.value,
+      contacted: contacted.value,
+      leadId: leadId.value,
     }));
   }
 
   function restore() {
     try {
-      const raw = sessionStorage.getItem(STORAGE_KEY);
+      const raw = sessionStorage.getItem(storageKey());
       if (!raw) return;
       const data = JSON.parse(raw);
       if (Array.isArray(data.labels)) {
@@ -74,8 +85,10 @@ export function useQuiz() {
       }
       submitted.value = Boolean(data.submitted);
       delivered.value = Boolean(data.delivered);
+      contacted.value = Boolean(data.contacted);
+      leadId.value = String(data.leadId || "");
     } catch {
-      sessionStorage.removeItem(STORAGE_KEY);
+      sessionStorage.removeItem(storageKey());
     }
   }
 
@@ -114,7 +127,7 @@ export function useQuiz() {
 
   function startQuiz() {
     trackQuiz("quiz_start");
-    router.push("/quiz/question/1");
+    router.push(`${base.value}/question/1`);
   }
 
   async function continueQuestion() {
@@ -130,7 +143,7 @@ export function useQuiz() {
       choice: labels.value[index],
       style: styles.value[index],
     });
-    const next = index === 8 ? "/quiz/coordonnees" : `/quiz/question/${index + 2}`;
+    const next = index === 8 ? `${base.value}/coordonnees` : `${base.value}/question/${index + 2}`;
     await router.push(next);
   }
 
@@ -144,7 +157,7 @@ export function useQuiz() {
     fieldErrors.prenom = form.prenom.trim() ? "" : "Indiquez votre prénom.";
     fieldErrors.nom = form.nom.trim() ? "" : "Indiquez votre nom.";
     fieldErrors.email = emailError(form.email);
-    fieldErrors.date = dateError(form.date);
+    fieldErrors.date = asksDate.value ? dateError(form.date) : "";
     return !fieldErrors.prenom && !fieldErrors.nom && !fieldErrors.email && !fieldErrors.date;
   }
 
@@ -157,8 +170,9 @@ export function useQuiz() {
           prenom: form.prenom.trim(),
           nom: form.nom.trim(),
           email: form.email.trim(),
-          date: form.date,
+          date: asksDate.value ? form.date : "",
           answers: labels.value,
+          kind: kind.value,
           societe: societe.value,
         },
       });
@@ -166,6 +180,7 @@ export function useQuiz() {
         saveError.value = true;
         return;
       }
+      leadId.value = String(response?.id || "");
       delivered.value = true;
     } catch {
       saveError.value = true;
@@ -177,7 +192,7 @@ export function useQuiz() {
     if (!validateForm()) return;
     if (styles.value.some((style) => !style)) return;
     if (submitted.value && delivered.value) {
-      await router.replace(`/quiz/resultat/${styleId.value}`);
+      await router.replace(`${base.value}/resultat/${styleId.value}`);
       return;
     }
     pending.value = true;
@@ -185,7 +200,7 @@ export function useQuiz() {
       submitted.value = true;
       trackQuiz("quiz_form_submit", { style: styleId.value });
       await deliver();
-      await router.replace(`/quiz/resultat/${styleId.value}`);
+      await router.replace(`${base.value}/resultat/${styleId.value}`);
     } finally {
       pending.value = false;
     }
@@ -203,13 +218,27 @@ export function useQuiz() {
 
   function goBack() {
     const step = etape.value;
-    if (step === "1") router.push("/quiz");
-    else if (step === "coordonnees") router.push("/quiz/question/9");
-    else if (/^[2-9]$/.test(step)) router.push(`/quiz/question/${Number(step) - 1}`);
+    if (step === "1") router.push(base.value);
+    else if (step === "coordonnees") router.push(`${base.value}/question/9`);
+    else if (/^[2-9]$/.test(step)) router.push(`${base.value}/question/${Number(step) - 1}`);
   }
 
-  function trackAppointment() {
-    trackQuiz("quiz_cta_appointment", { style: styleId.value });
+  async function requestContact() {
+    if (pending.value || contacted.value || !leadId.value) return;
+    pending.value = true;
+    contactError.value = false;
+    try {
+      await $fetch("/api/quiz-contact", {
+        method: "POST",
+        body: { id: leadId.value },
+      });
+      contacted.value = true;
+      trackQuiz("quiz_cta_appointment", { style: styleId.value });
+    } catch {
+      contactError.value = true;
+    } finally {
+      pending.value = false;
+    }
   }
 
   onMounted(async () => {
@@ -222,7 +251,7 @@ export function useQuiz() {
     focusStep();
   });
 
-  watch([labels, submitted, delivered], persist);
+  watch([labels, submitted, delivered, contacted, leadId], persist);
   watch(() => [form.prenom, form.nom, form.email, form.date], persist);
 
   watch(etape, async (step, previous) => {
@@ -253,13 +282,16 @@ export function useQuiz() {
     fieldErrors,
     choiceError,
     saveError,
+    contactError,
     submitted,
+    contacted,
     pending,
     ready,
     etape,
     questionIndex,
     styleId,
-    appointmentUrl,
+    kind,
+    asksDate,
     options,
     prompt,
     setAnswer,
@@ -269,6 +301,6 @@ export function useQuiz() {
     submitForm,
     retryDelivery,
     goBack,
-    trackAppointment,
+    requestContact,
   };
 }

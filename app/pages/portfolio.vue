@@ -45,12 +45,13 @@ useHead({
       <p v-for="(paragraph, paragraphIndex) in piece.paragraphs" :key="paragraphIndex">
         {{ paragraph }}
       </p>
-      <blockquote v-if="piece.review" class="c-piece-quote">
-        <p v-for="(paragraph, paragraphIndex) in piece.review.paragraphs" :key="paragraphIndex">
-          {{ paragraph }}
-        </p>
-        <footer>— {{ piece.review.author }}</footer>
-      </blockquote>
     </div>
+    <blockquote v-if="piece.review" class="c-letter">
+      <p class="c-letter-kicker">Sïana</p>
+      <p v-for="(paragraph, paragraphIndex) in piece.review.paragraphs" :key="paragraphIndex">
+        {{ paragraph }}
+      </p>
+      <footer>— {{ piece.review.author }}</footer>
+    </blockquote>
   </article>
 </template>

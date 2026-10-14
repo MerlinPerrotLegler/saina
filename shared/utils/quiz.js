@@ -6,10 +6,10 @@ export const questions = [
   {
     prompt: "Quelle couleur de métal vous attire naturellement ?",
     options: [
-      { label: "Or jaune", style: "chaleureux" },
-      { label: "Or gris", style: "elegant" },
-      { label: "Or rose", style: "sensible" },
-      { label: "Platine", style: "instinctif" },
+      { label: "Or jaune", style: "chaleureux", image: "/media/quiz/metals/or-jaune.jpg" },
+      { label: "Or gris", style: "elegant", image: "/media/quiz/metals/or-gris.jpg" },
+      { label: "Or rose", style: "sensible", image: "/media/quiz/metals/or-rose.jpg" },
+      { label: "Platine", style: "instinctif", image: "/media/quiz/metals/platine.jpg" },
     ],
   },
   {
@@ -80,17 +80,17 @@ export const questions = [
 export const stonePrompt = "Si tu étais une pierre, quelle serait ta couleur ?";
 
 export const stones = [
-  { label: "Blanc", note: "Pureté, simplicité, clarté", style: "elegant", swatch: "#f3efe6" },
-  { label: "Bleu", note: "Sagesse, intelligence, loyauté", style: "sensible", swatch: "#3d5a80" },
-  { label: "Vert", note: "Équilibre, renouveau, altruisme", style: "instinctif", swatch: "#3f6b4a" },
-  { label: "Rose", note: "Romance, tendresse, espièglerie", style: "sensible", swatch: "#e7b7c8" },
-  { label: "Rouge", note: "Amour, instinct, envie", style: "chaleureux", swatch: "#8e2f2f" },
-  { label: "Violet", note: "Mystère, spiritualité, intuition", style: "sensible", swatch: "#6b4c7a" },
-  { label: "Jaune", note: "Joie, sociabilité, spontanéité", style: "chaleureux", swatch: "#e3c15a" },
-  { label: "Orange", note: "Vitalité, créativité, originalité", style: "chaleureux", swatch: "#d9783a" },
-  { label: "Marron", note: "Tradition, savoir-faire, fiabilité", style: "instinctif", swatch: "#6b4a32" },
-  { label: "Gris", note: "Conformité, autorité, professionnalisme", style: "elegant", swatch: "#8d8a86" },
-  { label: "Noir", note: "Élégance, raffinement, puissance", style: "elegant", swatch: "#1c1c1c" },
+  { label: "Blanc", note: "Pureté, simplicité, clarté", style: "elegant" },
+  { label: "Bleu", note: "Sagesse, intelligence, loyauté", style: "sensible" },
+  { label: "Vert", note: "Équilibre, renouveau, altruisme", style: "instinctif" },
+  { label: "Rose", note: "Romance, tendresse, espièglerie", style: "sensible" },
+  { label: "Rouge", note: "Amour, instinct, envie", style: "chaleureux" },
+  { label: "Violet", note: "Mystère, spiritualité, intuition", style: "sensible" },
+  { label: "Jaune", note: "Joie, sociabilité, spontanéité", style: "chaleureux" },
+  { label: "Orange", note: "Vitalité, créativité, originalité", style: "chaleureux" },
+  { label: "Marron", note: "Tradition, savoir-faire, fiabilité", style: "instinctif" },
+  { label: "Gris", note: "Conformité, autorité, professionnalisme", style: "elegant" },
+  { label: "Noir", note: "Élégance, raffinement, puissance", style: "elegant" },
 ];
 
 export const results = {
@@ -129,35 +129,54 @@ export function stylesFor(labels) {
   });
 }
 
+export function quizBase(path) {
+  const clean = String(path || "");
+  if (clean === "/mariage" || clean.startsWith("/mariage/")) return "/mariage";
+  return "/quiz";
+}
+
+export function quizKind(path) {
+  return quizBase(path) === "/mariage" ? "mariage" : "sur-mesure";
+}
+
 export function stepFromPath(path) {
+  const base = quizBase(path);
   const clean = String(path || "").replace(/\/$/, "") || "/";
-  if (clean === "/quiz") return "intro";
-  const question = clean.match(/^\/quiz\/question\/([1-9])$/);
+  if (clean === base) return "intro";
+  const question = clean.match(new RegExp(`^${base}/question/([1-9])$`));
   if (question) return question[1];
-  if (clean === "/quiz/coordonnees") return "coordonnees";
-  if (/^\/quiz\/resultat\/(chaleureux|elegant|sensible|instinctif)$/.test(clean)) return "resultat";
+  if (clean === `${base}/coordonnees`) return "coordonnees";
+  if (new RegExp(`^${base}/resultat/(chaleureux|elegant|sensible|instinctif)$`).test(clean)) return "resultat";
   return "";
+}
+
+export function answerLines(labels) {
+  return (Array.isArray(labels) ? labels : []).map((label, index) => {
+    const prompt = index === 8 ? stonePrompt : questions[index]?.prompt;
+    return `${index + 1}. ${prompt || "Question"}\n${label || "—"}`;
+  }).join("\n\n");
 }
 
 /** @returns {string} chemin de correction, ou vide si l’étape est autorisée */
 export function quizDestination(path, { labels, submitted, formOk }) {
+  const base = quizBase(path);
   const step = stepFromPath(path);
-  if (!step) return "/quiz";
+  if (!step) return base;
   const styles = stylesFor(labels);
   const missing = styles.findIndex((style) => !style);
   if (/^[1-9]$/.test(step)) {
     const index = Number(step) - 1;
-    if (missing !== -1 && missing < index) return `/quiz/question/${missing + 1}`;
+    if (missing !== -1 && missing < index) return `${base}/question/${missing + 1}`;
     return "";
   }
   if (step === "coordonnees") {
-    if (missing !== -1) return `/quiz/question/${missing + 1}`;
+    if (missing !== -1) return `${base}/question/${missing + 1}`;
     return "";
   }
   if (step === "resultat") {
-    if (missing !== -1 || !submitted || !formOk) return "/quiz";
+    if (missing !== -1 || !submitted || !formOk) return base;
     const style = scoreQuiz(styles);
-    if (!String(path).replace(/\/$/, "").endsWith(`/${style}`)) return `/quiz/resultat/${style}`;
+    if (!String(path).replace(/\/$/, "").endsWith(`/${style}`)) return `${base}/resultat/${style}`;
     return "";
   }
   return "";

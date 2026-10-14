@@ -109,7 +109,7 @@ Chaque réponse vaut **1 point** pour un seul style.
 
 > Si tu étais une pierre, quelle serait ta couleur ?
 
-Onze choix. Chacun montre une pastille de la couleur, le nom de la couleur, et la symbolique en texte visible. La pastille est décorative pour le lecteur d’écran : le nom accessible est la couleur et la symbolique. Un seul choix. +1 au style indiqué. Cette question sert aussi au départage, via le point qu’elle ajoute.
+Onze choix. Chacun montre le nom de la couleur et la symbolique, en texte seul, sans photo ni pastille. Un seul choix. +1 au style indiqué. Cette question sert aussi au départage, via le point qu’elle ajoute.
 
 | Couleur | Symbolique | Style |
 | --- | --- | --- |
@@ -158,6 +158,8 @@ Titre : **Votre style est presque révélé…**
 
 > Pour découvrir votre résultat et recevoir une expérience personnalisée autour de votre style joaillier, renseignez vos coordonnées.
 
+Deux adresses, même parcours, même fichier. `/quiz` (Sur-mesure, menu principal) n’a pas de date. `/mariage` (pied de page, sitemap) ajoute la date du mariage. Les deux sont indexées. Seuls les résultats restent en `noindex`.
+
 Champs, dans cet ordre, étiquette visible, obligatoires :
 
 | Champ | Règle | Message |
@@ -165,7 +167,9 @@ Champs, dans cet ordre, étiquette visible, obligatoires :
 | Prénom | Après trim, au moins un caractère | Indiquez votre prénom. |
 | Nom | Après trim, au moins un caractère | Indiquez votre nom. |
 | Adresse e-mail | Forme `texte@domaine.tld` | Vide : « Indiquez votre adresse e-mail. » Invalide : « Cette adresse e-mail n'est pas valide. » |
-| Date du mariage ou de l'événement | Une date de calendrier réelle, passée ou à venir | Vide : « Indiquez la date du mariage ou de l'événement. » Impossible : « Cette date n'est pas valide. » |
+| Date du mariage | Uniquement sur `/mariage`. Date de calendrier réelle, passée ou à venir | Vide : « Indiquez la date du mariage. » Impossible : « Cette date n'est pas valide. » |
+
+La validation enregistre la ligne (base, ou fichier si MySQL est absent) et envoie un premier courrier **Formulaire rempli** à l’adresse d’environnement : coordonnées et les neuf réponses. Le clic **Parlons de votre projet** envoie un second courrier à la personne et à la même adresse : **Demande de contacts pour mariage** ou **Demande de contacts pour bijoux personnalisé**. Sans serveur de courrier configuré, l’enregistrement tient ; le second envoi indique qu’il n’a pas abouti.
 
 Les messages sont à côté du champ concerné. Les valeurs déjà saisies restent. Un formulaire incomplet ou invalide reste sur `/quiz/coordonnees` et n’ouvre aucun résultat.
 
@@ -208,7 +212,7 @@ CTA sur chaque résultat : **Parlons de votre projet**. Texte d’accompagnement
 
 > Votre style vous ressemble. Et si nous imaginions maintenant le bijou qui vous ressemble vraiment ?
 
-Le bouton pointe vers l’URL de rendez-vous fournie dans la configuration. Sans cette URL, le bouton n’est pas un lien et n’ouvre aucune autre page.
+Le bouton envoie la demande de contact. Il ne pointe pas vers une page de rendez-vous.
 
 Après le résultat, l’interface n’a pas de bouton « Recommencer ». Un nouvel essai commence en rouvrant `/quiz`. Le retour navigateur depuis le résultat ne renvoie pas le formulaire.
 
@@ -220,7 +224,7 @@ Ces quatre adresses sont en `noindex` tant que l’indexation n’est pas tranch
 - Clavier complet : tabulation, flèches dans le groupe de réponses, entrée pour continuer. Lecteur d’écran sur de vrais contrôles. Contraste suffisant.
 - Au changement d’étape, le focus va sur le titre de l’étape.
 - Animations courtes, discrètes, utiles (changement de question, sélection, progression, apparition du résultat). Avec `prefers-reduced-motion`, le changement d’étape est immédiat.
-- Pastilles de pierre en aplat, sans image lourde. Pas de saut de mise en page au chargement.
+- Médailles de métal à la question 1, pas d’aplats. La question pierre n’a que le nom et la symbolique. Le quiz occupe la hauteur de page. La bande de réassurance est au-dessus du bandeau blanc, seulement à l’introduction. Le focus du titre n’affiche pas de contour.
 - Le quiz est une page du site. Les blocs de l’accueil (cartes, infolettre, témoignages) n’en font pas partie.
 
 ## Mesure

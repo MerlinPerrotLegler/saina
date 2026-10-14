@@ -14,6 +14,12 @@ export default defineNuxtConfig({
     mysqlUser: process.env.MYSQL_USER || "",
     mysqlPassword: process.env.MYSQL_PASSWORD || "",
     mysqlDatabase: process.env.MYSQL_DATABASE || "",
+    mailTo: process.env.MAIL_TO || "",
+    mailFrom: process.env.MAIL_FROM || "",
+    smtpHost: process.env.SMTP_HOST || "",
+    smtpPort: Number(process.env.SMTP_PORT || 587),
+    smtpUser: process.env.SMTP_USER || "",
+    smtpPassword: process.env.SMTP_PASSWORD || "",
     public: {
       turnstileSiteKey: turnstileSiteKey && turnstileSecretKey ? turnstileSiteKey : "",
       appointmentUrl: process.env.NUXT_PUBLIC_APPOINTMENT_URL || "",
@@ -23,11 +29,15 @@ export default defineNuxtConfig({
     "pages:extend"(pages) {
       const quiz = pages.find((page) => page.path === "/quiz");
       if (!quiz?.file) return;
-      pages.push(
-        { name: "quiz-question", path: "/quiz/question/:n", file: quiz.file },
-        { name: "quiz-coordonnees", path: "/quiz/coordonnees", file: quiz.file },
-        { name: "quiz-resultat", path: "/quiz/resultat/:style", file: quiz.file },
-      );
+      const bases = ["/quiz", "/mariage"];
+      for (const base of bases) {
+        if (base === "/mariage") pages.push({ name: "mariage", path: "/mariage", file: quiz.file });
+        pages.push(
+          { name: `${base.slice(1)}-question`, path: `${base}/question/:n`, file: quiz.file },
+          { name: `${base.slice(1)}-coordonnees`, path: `${base}/coordonnees`, file: quiz.file },
+          { name: `${base.slice(1)}-resultat`, path: `${base}/resultat/:style`, file: quiz.file },
+        );
+      }
     },
   },
   vite: {
@@ -36,10 +46,13 @@ export default defineNuxtConfig({
   routeRules: {
     "/a-propos": { redirect: { to: "/", statusCode: 301 } },
     "/sur-mesure": { redirect: { to: "/quiz", statusCode: 301 } },
+    "/styleguide/": { redirect: { to: "/styleguide", statusCode: 302 } },
+    "/styleguide/index.html": { redirect: { to: "/styleguide", statusCode: 302 } },
   },
   nitro: {
     prerender: {
       crawlLinks: true,
+      routes: ["/styleguide", "/app/assets/css/components.css"],
     },
   },
   app: {

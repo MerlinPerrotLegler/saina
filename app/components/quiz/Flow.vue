@@ -9,12 +9,15 @@ const {
   fieldErrors,
   choiceError,
   saveError,
+  contactError,
+  contacted,
   pending,
   ready,
   etape,
   questionIndex,
   styleId,
-  appointmentUrl,
+  kind,
+  asksDate,
   options,
   prompt,
   setAnswer,
@@ -24,8 +27,15 @@ const {
   submitForm,
   retryDelivery,
   goBack,
-  trackAppointment,
+  requestContact,
 } = useQuiz();
+
+const reassures = [
+  { icon: "icone-coeur", label: ["Écoute", "du projet"] },
+  { icon: "icone-soleil", label: ["Dessin 3D", "avant fabrication"] },
+  { icon: "icone-lune", label: ["Un bijou", "qui a un sens"] },
+  { icon: "icone-points", label: ["Fait pour", "être porté"] },
+];
 
 const pageTitle = computed(() => {
   if (etape.value === "resultat" && ready.value && styleId.value) return results[styleId.value].title;
@@ -44,10 +54,17 @@ function optionName(option) {
 </script>
 
 <template>
-  <div class="c-sheet">
+  <div class="c-quiz-page">
+    <UiBand
+      v-if="etape === 'intro'"
+      class="bg-creme text-terracotta"
+      label="Réassurance"
+      :items="reassures"
+    />
+    <div class="c-quiz-band">
     <div class="c-quiz">
       <header class="c-sheet-intro">
-        <p class="c-kicker">Sur-mesure</p>
+        <p class="c-kicker">{{ kind === 'mariage' ? 'Mariage' : 'Sur-mesure' }}</p>
         <p v-if="/^[1-9]$/.test(etape)" id="quiz-progress" class="c-kicker">Question {{ etape }} sur 9</p>
         <div
           v-if="/^[1-9]$/.test(etape)"
@@ -98,12 +115,14 @@ function optionName(option) {
                 :aria-label="optionName(option)"
                 @change="setAnswer(questionIndex, option.label)"
               >
-              <span
-                v-if="option.swatch"
-                class="c-swatch"
-                aria-hidden="true"
-                :style="{ background: option.swatch }"
-              />
+              <img
+                v-if="option.image"
+                class="c-token"
+                :src="option.image"
+                alt=""
+                width="120"
+                height="120"
+              >
               <span class="c-choice-copy">
                 <span class="c-choice-name">{{ option.label }}</span>
                 <span v-if="option.note" class="c-choice-note">{{ option.note }}</span>
@@ -156,10 +175,11 @@ function optionName(option) {
           :error="fieldErrors.email"
         />
         <UiField
+          v-if="asksDate"
           v-model="form.date"
           name="date"
           type="date"
-          label="Date du mariage ou de l’événement"
+          label="Date du mariage"
           show-label
           required
           :error="fieldErrors.date"
@@ -183,20 +203,21 @@ function optionName(option) {
       <article v-else-if="ready && etape === 'resultat' && styleId" :class="['c-result', 'c-quiz-step', `c-result-${styleId}`]">
         <p class="c-lead">{{ results[styleId].text }}</p>
         <p class="c-lead">Votre style vous ressemble. Et si nous imaginions maintenant le bijou qui vous ressemble vraiment ?</p>
+        <p v-if="contacted" class="c-lead" role="status">Anaïs a bien reçu votre demande.</p>
+        <p v-if="contactError" class="c-field-error" role="alert">
+          L’envoi de la demande n’a pas abouti. Vous pouvez réessayer.
+        </p>
         <p v-if="saveError" class="c-field-error" role="alert">
           Le résultat est affiché. L’envoi des coordonnées n’a pas abouti : vous pouvez réessayer.
         </p>
         <div class="c-quiz-actions">
-          <a
-            v-if="appointmentUrl"
+          <button
             class="c-btn c-btn-inverse"
-            :href="appointmentUrl"
-            @click="trackAppointment"
+            type="button"
+            :disabled="pending || contacted || saveError"
+            @click="requestContact"
           >
-            Parlons de votre projet
-          </a>
-          <button v-else class="c-btn c-btn-inverse" type="button" disabled>
-            Parlons de votre projet
+            {{ contacted ? "Demande envoyée" : (pending ? "Envoi…" : "Parlons de votre projet") }}
           </button>
           <button
             v-if="saveError"
@@ -211,6 +232,7 @@ function optionName(option) {
       </article>
 
       <p v-else-if="etape !== 'intro'" class="c-lead">Reprise du questionnaire.</p>
+    </div>
     </div>
   </div>
 </template>
