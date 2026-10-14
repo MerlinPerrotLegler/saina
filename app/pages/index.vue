@@ -36,7 +36,8 @@ const cards = pieces.map((piece) => ({
     id="histoire"
     :image="photo"
     image-label="Portrait d’Anaïs, assise, fondatrice de Sïana"
-    image-position="center 18%"
+    image-whole
+    fill="var(--color-pourpre)"
     kicker="Joaillerie de transmission"
     :title="['Je suis Anaïs,', 'fondatrice de', 'Sïana Joaillerie']"
     lead="Des bijoux imaginés pour raconter ce qui vous rend unique."

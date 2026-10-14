@@ -1,6 +1,8 @@
 <script setup>
 import { pieces } from "~/data/portfolio";
 
+const separators = ["icone-soleil", "icone-lune", "icone-points"];
+
 useHead({
   title: "Portfolio — Sïana Joaillerie",
   meta: [
@@ -9,24 +11,32 @@ useHead({
       content: "Alliances de Lucie et Dylan, création unique d’Eva, prototype demi-soleil : les pièces et les mots de celles qui les portent.",
     },
   ],
+  link: [
+    { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Corinthia:wght@400;700&family=Fleur+De+Leah&family=Montez&display=swap",
+    },
+  ],
 });
 </script>
 
 <template>
-  <div class="c-sheet">
-    <header class="c-sheet-intro">
-      <p class="c-kicker">Portfolio</p>
-      <h1 class="c-title">Des pièces, des mots</h1>
-      <p class="c-lead">
-        Les créations racontées par Anaïs, et les retours de Lucie et d’Eva.
-      </p>
-    </header>
-  </div>
+  <header class="c-portfolio-intro">
+    <p class="c-kicker">Portfolio</p>
+    <h1 class="c-title">Des pièces, des mots</h1>
+    <p class="c-lead">
+      Les créations racontées par Anaïs, et les retours de Lucie et d’Eva.
+    </p>
+  </header>
 
+  <template v-for="(piece, index) in pieces" :key="piece.id">
+  <p v-if="index > 0" class="c-piece-rule" aria-hidden="true">
+    <BrandSvg :name="separators[index % separators.length]" />
+  </p>
   <article
-    v-for="(piece, index) in pieces"
     :id="piece.id"
-    :key="piece.id"
     class="c-piece"
   >
     <figure class="c-piece-figure">

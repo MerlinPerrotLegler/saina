@@ -24,13 +24,17 @@ scss_namespace: c-hero
 
 # Hero
 
-Photo pleine largeur, texte crème à gauche. L’image se pose par la propriété `--c-hero-image`.
+Photo pleine largeur, texte crème à gauche. Par défaut la photo est recadrée (`object-fit: cover`).
+
+Avec `imageWhole`, la photo est affichée en entier et calée à l’opposé du texte (à droite). Le reste du bloc prend la couleur `fill`. Le texte reste crème : choisir un fond sombre.
 
 ## Inputs
 
 | Input | Type | Rôle |
 | --- | --- | --- |
-| image | URL | Fond, via `--c-hero-image`. Le chemin est lu depuis la feuille CSS : utiliser une URL absolue (`/assets/brand/photo-anais.jpeg` sur la planche) |
+| image | URL | Photo du hero |
+| imageWhole | booléen | Affiche la photo en entier, à l’opposé du texte |
+| fill | couleur CSS | Fond du reste du bloc quand `imageWhole` est actif. Défaut : pourpre |
 | logo | slot | [[ui-logo]] |
 | kicker | string | « Bijoux & talismans » |
 | title | string | Quatre lignes : Transmission, Héritage, Joaillerie &, Pierres précieuses |
@@ -40,6 +44,7 @@ Photo pleine largeur, texte crème à gauche. L’image se pose par la propriét
 ## Classes
 
 - `c-hero` — photo, dégradé pourpre à gauche, texte crème
+- `c-hero-whole` — photo entière à droite, fond `fill` sur le reste
 - `c-hero-copy` — colonne de texte, 22 rem
 - `c-hero-title` — serif, capitales, suivi large
 - `c-brand` — wordmark agrandi dans ce bloc
