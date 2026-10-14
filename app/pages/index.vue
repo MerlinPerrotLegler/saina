@@ -2,7 +2,7 @@
 /** @spec [[fsd-a-propos]] */
 import { pieces } from "~/data/portfolio";
 
-const photo = "/brand/photo-anais.jpeg";
+const photo = "/brand/photo-anais-full.jpeg";
 
 useHead({
   title: "Sïana — Joaillerie de transmission",

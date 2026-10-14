@@ -27,7 +27,7 @@ test_paths: []
 
 Texte fourni pour la page qui présente Anaïs, fondatrice de [[siana]]. Il tient en cinq mouvements : qui elle est, créer autrement (dessin 3D), des bijoux qui ont une histoire, la rencontre, puis elle-même et l’accueil.
 
-Le portrait `assets/brand/photo-anais.jpeg` accompagne cette page. Le logo porte une autre phrase, « Joaillerie de transmission », qui ne remplace pas le chapô du texte.
+Le portrait `assets/brand/photo-anais-full.jpeg` accompagne cette page. Le logo porte une autre phrase, « Joaillerie de transmission », qui ne remplace pas le chapô du texte.
 
 ## Options
 

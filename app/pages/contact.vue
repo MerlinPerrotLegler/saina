@@ -213,7 +213,7 @@ async function onSubmit() {
     </div>
     <figure class="c-contact-photo">
       <img
-        src="/brand/photo-anais.jpeg"
+        src="/brand/photo-anais-full.jpeg"
         alt="Anaïs assise, fondatrice de Sïana"
         width="1200"
         height="1600"

@@ -27,7 +27,7 @@ export const pieces = [
       "Créer avec eux, ajuster, chercher la justesse, transformer une idée en un bijou qui leur ressemble réellement.",
     ],
     review: {
-      hand: "fleur",
+      hand: "italianno",
       author: "Lucie",
       paragraphs: [
         "Coucou Anaïs,",

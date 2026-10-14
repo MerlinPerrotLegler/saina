@@ -21,14 +21,14 @@ governed_by:
   - "[[GOAL]]"
   - "[[GUIDELINES]]"
 code_paths:
-  - assets/brand/photo-anais.jpeg
+  - assets/brand/photo-anais-full.jpeg
   - app/pages/a-propos.vue
 test_paths: []
 ---
 
 # FSD — À propos
 
-Page de présentation d’Anaïs. Pas de tunnel, pas de formulaire. Le portrait est `assets/brand/photo-anais.jpeg`.
+Page de présentation d’Anaïs. Pas de tunnel, pas de formulaire. Le portrait est `assets/brand/photo-anais-full.jpeg`.
 
 ## Acteurs
 

@@ -95,7 +95,7 @@ Sources Illustrator : `assets/brand/**/sources/`.
 
 ## Supports déjà posés
 
-- Portrait d’Anaïs : `assets/brand/photo-anais.jpeg` — page [[fsd-a-propos]]
+- Portrait d’Anaïs : `assets/brand/photo-anais-full.jpeg` — page [[fsd-a-propos]]
 - Cartes de visite pourpre et terracotta : `assets/brand/cartes-de-visite/` — SVG recto et `*-verso.svg`, plus le PDF d’impression
 - Planche complète : `assets/brand/brandboard.pdf`
 

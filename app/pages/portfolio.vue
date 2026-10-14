@@ -16,7 +16,7 @@ useHead({
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
     {
       rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Corinthia:wght@400;700&family=Fleur+De+Leah&family=Montez&display=swap",
+      href: "https://fonts.googleapis.com/css2?family=Corinthia:wght@400;700&family=Italianno&family=Montez&display=swap",
     },
   ],
 });
@@ -56,12 +56,76 @@ useHead({
         {{ paragraph }}
       </p>
     </div>
-    <blockquote v-if="piece.review" class="c-letter">
+    <blockquote v-if="piece.review" class="c-letter" :class="`c-letter-${piece.review.hand}`">
       <p class="c-letter-kicker">Sïana</p>
       <p v-for="(paragraph, paragraphIndex) in piece.review.paragraphs" :key="paragraphIndex">
         {{ paragraph }}
       </p>
-      <footer>— {{ piece.review.author }}</footer>
+      <footer v-if="piece.review.author">— {{ piece.review.author }}</footer>
     </blockquote>
   </article>
+  </template>
 </template>
+
+<style lang="scss">
+.c-portfolio-intro {
+  padding: 3.4rem 6vw 2.8rem;
+  background: #fff;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-pourpre) 12%, transparent);
+
+  .c-kicker {
+    color: var(--color-terracotta);
+  }
+
+  .c-title {
+    max-width: 16ch;
+    margin: 0 0 1.1rem;
+    font-size: clamp(2.7rem, 6vw, 4.6rem);
+    line-height: 0.95;
+  }
+
+  .c-lead {
+    max-width: 28rem;
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.45;
+  }
+}
+
+.c-piece-rule {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0.2rem 0;
+  color: var(--color-terracotta);
+
+  .c-mark {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+}
+
+.c-letter-italianno p:not(.c-letter-kicker),
+.c-letter-italianno footer {
+  font-family: Italianno, cursive;
+  font-size: 2.35rem;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.c-letter-montez p:not(.c-letter-kicker),
+.c-letter-montez footer {
+  font-family: Montez, cursive;
+  font-size: 1.85rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.c-letter-corinthia p:not(.c-letter-kicker),
+.c-letter-corinthia footer {
+  font-family: Corinthia, cursive;
+  font-size: 2.6rem;
+  font-weight: 400;
+  line-height: 1.05;
+}
+</style>

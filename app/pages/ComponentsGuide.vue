@@ -2,7 +2,7 @@
 /** @spec [[composents]] */
 definePageMeta({ layout: false });
 
-const photo = "/brand/photo-anais.jpeg";
+const photo = "/brand/photo-anais-full.jpeg";
 const email = ref("");
 
 useHead({
