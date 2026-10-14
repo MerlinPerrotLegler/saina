@@ -28,7 +28,7 @@ Photo pleine largeur, texte crème à gauche. Par défaut la photo est recadrée
 
 Avec `imageWhole`, la photo est affichée en entier et calée à l’opposé du texte (à droite). Le reste du bloc prend `bgColor`, sinon `fill`. Le texte reste crème : choisir un fond sombre.
 
-`imageDesktop` remplace `image` à partir de 861px. `imageMobile` la remplace en dessous. `bgImage` prolonge le bord gauche de la photo sur le fond, pour continuer le mur derrière le texte. En dessous de 860px, si `imageMobile` est fourni, c’est le bord haut de cette photo qui est prolongé.
+`imageDesktop` remplace `image` à partir de 861px. `imageMobile` la remplace en dessous. `bgImage` prolonge le bord gauche de la photo sur le fond, pour continuer le mur derrière le texte. En dessous de 860px, ce prolongement disparaît : `imageMobile` couvre le bloc, et le texte passe devant.
 
 ## Inputs
 

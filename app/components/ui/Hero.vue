@@ -32,12 +32,7 @@ onMounted(() => {
   if (!props.bgImage || document.getElementById("c-hero-wall-style")) return;
   const style = document.createElement("style");
   style.id = "c-hero-wall-style";
-  style.textContent = [
-    '.c-hero-wall img { filter: url("#c-hero-wall-x"); }',
-    "@media (max-width: 860px) {",
-    '.c-hero-wall img { filter: url("#c-hero-wall-y"); }',
-    "}",
-  ].join("\n");
+  style.textContent = '.c-hero-wall img { filter: url("#c-hero-wall-x"); }';
   document.head.appendChild(style);
 });
 </script>
@@ -49,14 +44,8 @@ onMounted(() => {
         <filter id="c-hero-wall-x" color-interpolation-filters="sRGB" x="0" y="-5%" width="100%" height="110%">
           <feGaussianBlur stdDeviation="0 8" />
         </filter>
-        <filter id="c-hero-wall-y" color-interpolation-filters="sRGB" x="-5%" y="0" width="110%" height="100%">
-          <feGaussianBlur stdDeviation="8 0" />
-        </filter>
       </svg>
-      <picture>
-        <source v-if="imageMobile" media="(max-width: 860px)" :srcset="imageMobile">
-        <img :src="bgImage" alt="">
-      </picture>
+      <img :src="bgImage" alt="">
     </div>
     <picture class="c-hero-photo">
       <source
