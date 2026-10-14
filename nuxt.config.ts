@@ -1,4 +1,6 @@
+import { join } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
+import { dereferencePublicSymlinks } from "./scripts/dereference-public.mjs";
 
 const turnstileSiteKey = process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY || "";
 const turnstileSecretKey = process.env.NUXT_TURNSTILE_SECRET_KEY || "";
@@ -26,6 +28,9 @@ export default defineNuxtConfig({
     },
   },
   hooks: {
+    async "nitro:build:public-assets"(nitro) {
+      await dereferencePublicSymlinks(join(nitro.options.rootDir, "public"), nitro.options.output.publicDir);
+    },
     "pages:extend"(pages) {
       const quiz = pages.find((page) => page.path === "/quiz");
       if (!quiz?.file) return;

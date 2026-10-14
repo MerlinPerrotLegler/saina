@@ -2,7 +2,9 @@
 /** @spec [[fsd-a-propos]] */
 import { pieces } from "~/data/portfolio";
 
-const photo = "/brand/photo-anais-full.jpeg";
+const photoCrop = "/brand/photo-anais-crop.jpeg";
+const photoRepeat = "/brand/photo-anais-crop-repeate.jpeg";
+const photoFull = "/brand/photo-anais-full.jpeg";
 
 useHead({
   title: "Sïana — Joaillerie de transmission",
@@ -34,7 +36,10 @@ const cards = pieces.map((piece) => ({
 <template>
   <UiHero
     id="histoire"
-    :image="photo"
+    :image-desktop="photoCrop"
+    :bg-image="photoRepeat"
+    :image-mobile="photoFull"
+    bg-color="#4b1d23"
     image-label="Portrait d’Anaïs, assise, fondatrice de Sïana"
     image-whole
     fill="var(--color-pourpre)"
