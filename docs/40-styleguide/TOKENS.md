@@ -13,6 +13,7 @@ relates_to:
   - "[[scss-nomenclature]]"
   - "[[GOAL]]"
   - "[[siana]]"
+  - "[[composents]]"
 prev: []
 next: []
 glossary:
@@ -28,7 +29,7 @@ scss_namespace: tokens
 
 # TOKENS
 
-Couleurs et typo lues sur `assets/brand/palette.jpeg` et sur les polices embarquées dans `assets/brand/brandboard.pdf`. Le fichier `app/assets/css/tokens.scss` n’existe pas encore : c’est la cible quand le front sera scaffoldé. Les binaires ne vivent pas dans ce vault.
+Couleurs et typo lues sur `assets/brand/palette.jpeg` et sur les polices embarquées dans `assets/brand/brandboard.pdf`. Les jetons vivent dans `app/assets/css/tokens.scss`. Les classes de la maquette d’accueil vivent dans `app/assets/css/components.css`, indexées par [[composents]]. Les binaires ne vivent pas dans ce vault.
 
 ## Couleur
 

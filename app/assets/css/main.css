@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import "./components.css" layer(components);
+
+@theme inline {
+  --color-pourpre: var(--siana-pourpre);
+  --color-creme: var(--siana-creme);
+  --color-terracotta: var(--siana-terracotta);
+  --color-indigo: var(--siana-indigo);
+  --color-corail: var(--siana-corail);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --font-serif: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+  --font-sans: Futura, "Futura PT", "Avenir Next", "Century Gothic", sans-serif;
+}

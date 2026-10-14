@@ -4,6 +4,17 @@ Site d’Anaïs (Sïana). Le vault métier est [`docs/`](docs/) : objectif, char
 
 Le dépôt repose sur le Project Host Kit : contrat des notes dans [`schemas/`](schemas/), pas de scaffold `app/` / `api/` tant que les specs ne sont pas découpées en tâches.
 
+## Site
+
+Front Nuxt, généré en statique. L’API PHP et MySQL ne sont pas encore en place.
+
+```bash
+npm run dev
+npm run generate
+```
+
+Le résultat statique est dans `.output/public`.
+
 ## Init
 
 ```bash

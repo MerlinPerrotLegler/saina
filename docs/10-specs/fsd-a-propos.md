@@ -22,6 +22,7 @@ governed_by:
   - "[[GUIDELINES]]"
 code_paths:
   - assets/brand/photo-anais.jpeg
+  - app/pages/a-propos.vue
 test_paths: []
 ---
 

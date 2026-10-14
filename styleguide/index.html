@@ -163,7 +163,22 @@
       line-height: 1.55;
     }
     footer { padding: 1rem 0 3rem; color: color-mix(in srgb, var(--ink) 75%, transparent); }
+    .class-index {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin: 0 0 1.4rem;
+      padding: 0;
+      list-style: none;
+    }
+    .class-index code {
+      display: inline-block;
+      background: var(--color-secondary);
+      border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+      padding: .2rem .45rem;
+    }
   </style>
+  <link rel="stylesheet" href="../app/assets/css/components.css">
 </head>
 <body>
   <svg class="sprite" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true">
@@ -1041,7 +1056,172 @@
 &lt;i class="icone icone-logo-sub-title color-creme text-corail"&gt;
   &lt;svg&gt;&lt;use href="#icone-logo-sub-title"/&gt;&lt;/svg&gt;
 &lt;/i&gt;</pre>
-    <footer>Fichiers sources dans assets/brand/. Cette page est styleguide/index.html.</footer>
+    <h2>Classes de la maquette</h2>
+    <p>Chaque nom ci-dessous est une classe de <code>app/assets/css/components.css</code>, chargée avec Tailwind. La planche reprend l’accueil.</p>
+    <ul class="class-index"><li><code>c-page</code></li><li><code>c-kicker</code></li><li><code>c-title</code></li><li><code>c-lead</code></li><li><code>c-label</code></li><li><code>c-brand</code></li><li><code>c-btn</code></li><li><code>c-btn-soft</code></li><li><code>c-btn-primary</code></li><li><code>c-btn-light</code></li><li><code>c-btn-inverse</code></li><li><code>c-field</code></li><li><code>c-header</code></li><li><code>c-nav</code></li><li><code>c-nav-link</code></li><li><code>c-tools</code></li><li><code>c-icon-btn</code></li><li><code>c-hero</code></li><li><code>c-hero-copy</code></li><li><code>c-hero-title</code></li><li><code>c-values</code></li><li><code>c-value</code></li><li><code>c-section</code></li><li><code>c-section-head</code></li><li><code>c-cards</code></li><li><code>c-card</code></li><li><code>c-card-title</code></li><li><code>c-split</code></li><li><code>c-split-media</code></li><li><code>c-split-copy</code></li><li><code>c-band</code></li><li><code>c-band-item</code></li><li><code>c-band-icon</code></li><li><code>bg-creme</code></li><li><code>text-terracotta</code></li><li><code>bg-terracotta</code></li><li><code>text-creme</code></li><li><code>c-quotes</code></li><li><code>c-quote</code></li><li><code>c-quote-text</code></li><li><code>c-stars</code></li><li><code>c-quote-author</code></li><li><code>c-newsletter</code></li><li><code>c-newsletter-form</code></li><li><code>c-footer</code></li><li><code>c-footer-grid</code></li><li><code>c-footer-title</code></li><li><code>c-footer-link</code></li><li><code>c-footer-legal</code></li></ul>
+
+    <div class="c-page">
+      <header class="c-header">
+        <p class="c-brand">Sïa<br>Na</p>
+        <nav class="c-nav" aria-label="Principal">
+          <a class="c-nav-link" href="#histoire">Histoire</a>
+          <a class="c-nav-link" href="#boutiques">Boutiques</a>
+          <a class="c-nav-link" href="#univers">L’univers</a>
+          <a class="c-nav-link" href="#bijoux">Bijoux</a>
+          <a class="c-nav-link" href="#sur-mesure">Sur-mesure</a>
+          <a class="c-nav-link" href="#a-propos">À propos</a>
+          <a class="c-nav-link" href="#contact">Contact</a>
+        </nav>
+        <div class="c-tools">
+          <a class="c-icon-btn" href="#recherche" aria-label="Recherche"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 16l5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+          <a class="c-icon-btn" href="#compte" aria-label="Compte"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 19c1.4-3 3.8-4.2 7-4.2S17.6 16 19 19" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+          <a class="c-icon-btn" href="#panier" aria-label="Panier"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 11H7L6 8z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 8V7a3 3 0 0 1 6 0v1" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+        </div>
+      </header>
+
+      <section class="c-hero" style="--c-hero-image: url('/assets/brand/photo-anais.jpeg')">
+        <div class="c-hero-copy">
+          <p class="c-brand">Sïa<br>Na</p>
+          <p class="c-kicker">Bijoux &amp; talismans</p>
+          <h2 class="c-hero-title">Transmission<br>Héritage<br>Joaillerie &amp;<br>pierres précieuses</h2>
+          <p class="c-lead">Des bijoux porteurs de sens, inspirés par la nature, les pierres précieuses et les histoires qui vous relient.</p>
+          <a class="c-btn c-btn-soft" href="#univers">Découvrir l’univers</a>
+        </div>
+      </section>
+
+      <section class="c-values" aria-label="Repères">
+        <article class="c-value">
+          <i class="icone icone-soleil"><svg><use href="#icone-soleil"/></svg></i>
+          <p class="c-label">Pierres<br>naturelles</p>
+        </article>
+        <article class="c-value">
+          <i class="icone icone-motif"><svg><use href="#icone-motif"/></svg></i>
+          <p class="c-label">Créations<br>artisanales</p>
+        </article>
+        <article class="c-value">
+          <i class="icone icone-coeur"><svg><use href="#icone-coeur"/></svg></i>
+          <p class="c-label">Bijoux<br>porteurs de sens</p>
+        </article>
+        <article class="c-value">
+          <i class="icone icone-lune"><svg><use href="#icone-lune"/></svg></i>
+          <p class="c-label">Inspirés<br>par la nature</p>
+        </article>
+      </section>
+
+      <section class="c-section" id="bijoux">
+        <div class="c-section-head">
+          <p class="c-kicker">Collections</p>
+          <h2 class="c-title">Des bijoux qui racontent une histoire</h2>
+          <p class="c-lead">Chaque création est pensée comme un talisman, alliant beauté, symbolique et éclat des pierres. Des pièces uniques ou, en petites séries, pour vous accompagner au quotidien.</p>
+          <a class="c-btn c-btn-primary" href="#collections">Découvrir les collections</a>
+        </div>
+        <div class="c-cards">
+          <article class="c-card" style="--c-card-image: url('/assets/brand/photo-anais.jpeg'); --c-card-pos: 20% center">
+            <h3 class="c-card-title">Colliers</h3>
+            <a class="c-btn c-btn-light" href="#colliers">Explorer</a>
+          </article>
+          <article class="c-card" style="--c-card-image: url('/assets/brand/photo-anais.jpeg'); --c-card-pos: 55% center">
+            <h3 class="c-card-title">Boucles d’oreilles</h3>
+            <a class="c-btn c-btn-light" href="#boucles">Explorer</a>
+          </article>
+          <article class="c-card" style="--c-card-image: url('/assets/brand/photo-anais.jpeg'); --c-card-pos: 80% center">
+            <h3 class="c-card-title">Bracelets</h3>
+            <a class="c-btn c-btn-light" href="#bracelets">Explorer</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="c-split" id="a-propos">
+        <div class="c-split-media" style="--c-split-image: url('/assets/brand/photo-anais.jpeg')" role="img" aria-label="Anaïs à l’établi"></div>
+        <div class="c-split-copy">
+          <p class="c-kicker">À propos</p>
+          <h2 class="c-title">Une démarche sensible et authentique</h2>
+          <p class="c-lead">Sïana, c’est l’alliance de ma passion pour les pierres et de mon savoir de créatrice. Chaque bijou suit sa voie, inspirée par la nature et les cycles de la vie, je conçois des bijoux qui vous accompagnent dans vos chemins personnels.</p>
+          <a class="c-btn c-btn-primary" href="/a-propos">En savoir plus</a>
+        </div>
+      </section>
+
+      <section class="c-band bg-creme text-terracotta" aria-label="Repères">
+        <p class="c-band-item"><span class="c-band-icon"><svg><use href="#icone-points"/></svg></span><span>Pierres<br>naturelles</span></p>
+        <p class="c-band-item"><span class="c-band-icon"><svg><use href="#icone-soleil"/></svg></span><span>Créations<br>artisanales</span></p>
+        <p class="c-band-item"><span class="c-band-icon"><svg><use href="#icone-lune"/></svg></span><span>Bijoux<br>porteurs de sens</span></p>
+        <p class="c-band-item"><span class="c-band-icon"><svg><use href="#icone-coeur"/></svg></span><span>Inspirés<br>par la nature</span></p>
+      </section>
+
+      <section class="c-band bg-terracotta text-creme" aria-label="Façon">
+        <p class="c-band-item"><span class="c-band-icon"><svg><use href="#icone-soleil"/></svg></span><span>Sélection<br>de pierres de qualité</span></p>
+        <p class="c-band-item"><span class="c-band-icon"><svg><use href="#icone-lune"/></svg></span><span>Fabrication<br>artisanale</span></p>
+        <p class="c-band-item"><span class="c-band-icon"><svg><use href="#icone-coeur"/></svg></span><span>Créations uniques<br>ou petites séries</span></p>
+        <p class="c-band-item"><span class="c-band-icon"><svg><use href="#icone-points"/></svg></span><span>Conseils<br>personnalisés</span></p>
+      </section>
+
+      <section class="c-section">
+        <div class="c-section-head">
+          <p class="c-kicker">Témoignages</p>
+          <h2 class="c-title">Vos mots, ma plus belle récompense</h2>
+        </div>
+      </section>
+      <div class="c-quotes">
+        <blockquote class="c-quote">
+          <p class="c-quote-text">Un bijou magnifique, encore plus beau en vrai. On sent l’amour et la passion derrière chaque création.</p>
+          <p class="c-stars" aria-label="5 sur 5">★★★★★</p>
+          <p class="c-quote-author">— Claire</p>
+        </blockquote>
+        <blockquote class="c-quote">
+          <p class="c-quote-text">Une pièce unique et pleine de sens, qui m’accompagne tous les jours. Merci pour ton écoute et ta douceur.</p>
+          <p class="c-stars" aria-label="5 sur 5">★★★★★</p>
+          <p class="c-quote-author">— Marine</p>
+        </blockquote>
+        <blockquote class="c-quote">
+          <p class="c-quote-text">Des bijoux d’une grande qualité, avec des pierres superbes. Je recommande les yeux fermés.</p>
+          <p class="c-stars" aria-label="5 sur 5">★★★★★</p>
+          <p class="c-quote-author">— Élodie</p>
+        </blockquote>
+      </div>
+
+      <section class="c-newsletter">
+        <h2 class="c-title">Rejoignez l’univers Sïana</h2>
+        <p class="c-lead">Recevez les nouveautés, les coulisses de l’atelier et des inspirations autour des pierres et des cycles de la nature.</p>
+        <form class="c-newsletter-form" action="#inscription" method="post">
+          <input class="c-field" id="courriel" type="email" name="courriel" placeholder="Votre adresse e-mail" aria-label="Adresse e-mail" required>
+          <button class="c-btn c-btn-inverse" type="submit">S’inscrire</button>
+        </form>
+      </section>
+
+      <footer class="c-footer" id="contact">
+        <div class="c-footer-grid">
+          <div>
+            <p class="c-brand">Sïa<br>Na</p>
+            <p class="c-lead">Des bijoux porteurs de sens, inspirés par la nature, les pierres et les histoires qui nous relient.</p>
+          </div>
+          <div>
+            <p class="c-footer-title">Liens rapides</p>
+            <a class="c-footer-link" href="#histoire">Histoire</a>
+            <a class="c-footer-link" href="#univers">L’univers</a>
+            <a class="c-footer-link" href="#bijoux">Pierres</a>
+            <a class="c-footer-link" href="#boutiques">Boutique</a>
+            <a class="c-footer-link" href="#a-propos">À propos</a>
+          </div>
+          <div>
+            <p class="c-footer-title">Informations</p>
+            <a class="c-footer-link" href="#faq">FAQ</a>
+            <a class="c-footer-link" href="#livraison">Livraison</a>
+            <a class="c-footer-link" href="#retours">Retours</a>
+            <a class="c-footer-link" href="#conditions">Conditions générales</a>
+            <a class="c-footer-link" href="#mentions">Mentions légales</a>
+            <a class="c-footer-link" href="#confidentialite">Politique de confidentialité</a>
+          </div>
+          <div>
+            <p class="c-footer-title">Contact</p>
+            <a class="c-footer-link" href="mailto:anaisgrazzini@gmail.com">anaisgrazzini@gmail.com</a>
+            <a class="c-footer-link" href="tel:+33629679367">+33 06 29 67 93 67</a>
+          </div>
+        </div>
+        <p class="c-footer-legal"><span>© 2026 Sïana — Tous droits réservés</span></p>
+      </footer>
+    </div>
+
+    <footer>Fichiers sources dans assets/brand/. Cette page est styleguide/index.html. Classes de maquette dans app/assets/css/components.css.</footer>
   </main>
 </body>
 </html>

@@ -1,5 +1,8 @@
 node_modules/
+.nuxt/
+.output/
 .DS_Store
 **/.DS_Store
 *.tmp
 ~*
+dist
