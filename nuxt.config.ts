@@ -50,6 +50,9 @@ export default defineNuxtConfig({
     "/styleguide/index.html": { redirect: { to: "/styleguide", statusCode: 302 } },
   },
   nitro: {
+    serverAssets: [
+      { baseName: "emails", dir: "./emails/html" },
+    ],
     prerender: {
       crawlLinks: true,
       routes: ["/styleguide", "/app/assets/css/components.css"],

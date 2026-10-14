@@ -24,22 +24,23 @@ export function mailConfigured(config) {
   return Boolean(transport(config));
 }
 
-export async function sendMail(config, { to, subject, text }) {
+export async function sendMail(config, { to, subject, text, html, replyTo }) {
   const tx = transport(config);
   if (!tx) {
     console.error("mail: SMTP ou MAIL_TO absent");
     return false;
   }
-  const html = text
+  const fallback = text
     .split("\n")
     .map((line) => (line ? `<p style="margin:0 0 12px;font-family:Georgia,serif;color:#3e1f24;line-height:1.5">${escapeHtml(line)}</p>` : "<br>"))
     .join("");
   await tx.sendMail({
     from: config.mailFrom,
     to,
+    replyTo: replyTo || undefined,
     subject,
     text,
-    html: `<div style="background:#f5e0cb;padding:28px"><div style="max-width:560px;margin:0 auto;background:#fff;padding:28px">${html}</div></div>`,
+    html: html || `<div style="background:#f5e0cb;padding:28px"><div style="max-width:560px;margin:0 auto;background:#fff;padding:28px">${fallback}</div></div>`,
   });
   return true;
 }

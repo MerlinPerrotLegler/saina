@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import mjml2html from "mjml";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
-const names = ["contact", "quiz", "newsletter"];
+const names = ["contact", "quiz", "newsletter", "manager-formulaire", "manager-demande"];
 const outDir = path.join(root, "html");
 
 await mkdir(outDir, { recursive: true });

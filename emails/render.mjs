@@ -17,6 +17,14 @@ export const templates = {
     subject: "Bienvenue dans l’univers Sïana",
     fields: ["quiz_url", "desinscription_url"],
   },
+  "manager-formulaire": {
+    subject: "Formulaire rempli",
+    fields: ["prenom", "nom", "email", "parcours", "style", "coordonnees", "reponses"],
+  },
+  "manager-demande": {
+    subject: "Demande de contacts",
+    fields: ["sujet", "prenom", "nom", "email", "parcours", "coordonnees", "reponses"],
+  },
 };
 
 export async function renderEmail(name, data = {}) {
