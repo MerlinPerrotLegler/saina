@@ -182,12 +182,15 @@ const headerItems = [
         <h3>Inputs</h3>
         <ul>
           <li><code>image</code> — photo, recadrée en plein cadre par défaut</li>
+          <li><code>imageDesktop</code> <code>imageMobile</code> — photo selon la largeur, seuil 860px</li>
+          <li><code>bgImage</code> — son bord gauche est étiré en fond</li>
+          <li><code>bgColor</code> — couleur de repli du fond</li>
           <li><code>imageWhole</code> — affiche la photo en entier, à l’opposé du texte</li>
-          <li><code>fill</code> — couleur du reste du bloc quand <code>imageWhole</code> est actif. Le texte reste crème</li>
+          <li><code>fill</code> — couleur du reste du bloc quand <code>imageWhole</code> est actif et que <code>bgColor</code> est absent. Le texte reste crème</li>
           <li><code>kicker</code> <code>title</code> <code>lead</code></li>
           <li><code>cta</code> — <code>{ label, href }</code>, variante soft</li>
         </ul>
-        <p class="guide-classes"><code>c-hero</code> <code>c-hero-whole</code> <code>c-hero-copy</code> <code>c-hero-title</code> <code>c-brand</code> <code>c-kicker</code> <code>c-lead</code> <code>c-btn</code> <code>c-btn-soft</code></p>
+        <p class="guide-classes"><code>c-hero</code> <code>c-hero-whole</code> <code>c-hero-wall</code> <code>c-hero-copy</code> <code>c-hero-title</code> <code>c-brand</code> <code>c-kicker</code> <code>c-lead</code> <code>c-btn</code> <code>c-btn-soft</code></p>
       </section>
 
       <section id="values" class="guide-block">

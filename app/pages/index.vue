@@ -3,7 +3,7 @@
 import { pieces } from "~/data/portfolio";
 
 const photoCrop = "/brand/photo-anais-crop.jpeg";
-const photoRepeat = "/brand/photo-anais-crop-repeate.jpeg";
+const photoRepeat = "/brand/photo-anais-crop.jpeg";
 const photoFull = "/brand/photo-anais-full.jpeg";
 
 useHead({
