@@ -1,4 +1,4 @@
-const paths = ["/", "/quiz", "/mariage", "/portfolio", "/contact"];
+const paths = ["/", "/quiz", "/mariage", "/portfolio", "/contact", "/rendez-vous"];
 
 export default defineEventHandler((event) => {
   const origin = getRequestURL(event).origin;

@@ -391,9 +391,9 @@ const headerItems = [
 
   h2 {
     margin: 0 0 0.8rem;
-    font-family: var(--font-serif, Palatino, Georgia, serif);
+    font-family: var(--font-title, "Condor Regula", "Condor Regular", Condor, Palatino, Georgia, serif);
     font-size: 1.6rem;
-    font-weight: 500;
+    font-weight: 400;
   }
 
   h3 {

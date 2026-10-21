@@ -10,5 +10,6 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --font-serif: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+  --font-title: "Condor Regula", "Condor Regular", Condor, "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
   --font-sans: Futura, "Futura PT", "Avenir Next", "Century Gothic", sans-serif;
 }

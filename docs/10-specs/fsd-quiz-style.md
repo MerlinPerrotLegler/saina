@@ -1,5 +1,6 @@
 ---
-id: fsd-quiz-style
+
+## id: fsd-quiz-style
 type: fsd
 status: accepted
 lang: fr
@@ -36,7 +37,8 @@ code_paths:
   - server/utils/quiz-db.js
 test_paths:
   - scripts/quiz-score.test.mjs
----
+
+
 
 # FSD — Quiz « Quel style de bijou vous ressemble ? »
 
@@ -50,6 +52,8 @@ Le score est une fonction des neuf réponses courantes. Changer une réponse rem
 
 - Visiteur, surtout sur mobile, une main.
 - Anaïs / [[siana]], destinataire du rendez-vous et de la soumission.
+
+
 
 ## Parcours
 
@@ -94,16 +98,20 @@ Bouton **Retour** à partir de la question 2 et sur le formulaire. Depuis la que
 
 Chaque réponse vaut **1 point** pour un seul style.
 
-| Question | [[style-chaleureux]] | [[style-elegant]] | [[style-sensible]] | [[style-instinctif]] |
-| --- | --- | --- | --- | --- |
-| 1. Quelle couleur de métal vous attire naturellement ? | Or jaune | Or gris | Or rose | Platine |
-| 2. Quelle finition vous attire le plus ? | Brillante / clinquante | Mate | Lumineuse | Brute |
-| 3. Quelle énergie vous attire spontanément ? | Feu | Air | Eau | Terre |
-| 4. Quelle forme vous attire le plus ? | Forme libre | Ovale | Ronde | Carrée |
-| 5. Quel univers esthétique vous correspond le plus ? | Ornemental | Minimaliste | Symbolique | Architectural |
-| 6. Comment aimez-vous porter un bijou ? | Pour les célébrations | Tous les jours | Comme une œuvre | Comme un talisman |
-| 7. Quelle émotion souhaitez-vous transmettre à travers un bijou ? | Joie | Calme | Passion | Liberté |
-| 8. Quelle symbolique vous parle le plus ? | Amitié | Passage de vie | Amour | Force personnelle |
+
+| Question                                                          | [[style-chaleureux]]   | [[style-elegant]] | [[style-sensible]] | [[style-instinctif]] |
+| ----------------------------------------------------------------- | ---------------------- | ----------------- | ------------------ | -------------------- |
+| 1. Quelle couleur de métal vous attire naturellement ?            | Or jaune               | Or gris           | Or rose            | Platine              |
+| 2. Quelle finition vous attire le plus ?                          | Brillante / clinquante | Mate              | Lumineuse          | Brute                |
+| 3. Quelle énergie vous attire spontanément ?                      | Feu                    | Air               | Eau                | Terre                |
+| 4. Quelle forme vous attire le plus ?                             | Forme libre            | Ovale             | Ronde              | Carrée               |
+| 5. Quel univers esthétique vous correspond le plus ?              | Ornemental             | Minimaliste       | Symbolique         | Architectural        |
+| 6. Comment aimez-vous porter un bijou ?                           | Pour les célébrations  | Tous les jours    | Comme une œuvre    | Comme un talisman    |
+| 7. Quelle émotion souhaitez-vous transmettre à travers un bijou ? | Joie                   | Calme             | Passion            | Liberté              |
+| 8. Quelle symbolique vous parle le plus ?                         | Amitié                 | Passage de vie    | Amour              | Force personnelle    |
+
+
+
 
 ### Question 9 — la pierre
 
@@ -111,19 +119,21 @@ Chaque réponse vaut **1 point** pour un seul style.
 
 Onze choix. Chacun montre le nom de la couleur et la symbolique, en texte seul, sans photo ni pastille. Un seul choix. +1 au style indiqué. Cette question sert aussi au départage, via le point qu’elle ajoute.
 
-| Couleur | Symbolique | Style |
-| --- | --- | --- |
-| Blanc | Pureté, simplicité, clarté | [[style-elegant]] |
-| Bleu | Sagesse, intelligence, loyauté | [[style-sensible]] |
-| Vert | Équilibre, renouveau, altruisme | [[style-instinctif]] |
-| Rose | Romance, tendresse, espièglerie | [[style-sensible]] |
-| Rouge | Amour, instinct, envie | [[style-chaleureux]] |
-| Violet | Mystère, spiritualité, intuition | [[style-sensible]] |
-| Jaune | Joie, sociabilité, spontanéité | [[style-chaleureux]] |
-| Orange | Vitalité, créativité, originalité | [[style-chaleureux]] |
-| Marron | Tradition, savoir-faire, fiabilité | [[style-instinctif]] |
-| Gris | Conformité, autorité, professionnalisme | [[style-elegant]] |
-| Noir | Élégance, raffinement, puissance | [[style-elegant]] |
+
+| Couleur | Symbolique                              | Style                |
+| ------- | --------------------------------------- | -------------------- |
+| Blanc   | Pureté, simplicité, clarté              | [[style-elegant]]    |
+| Bleu    | Sagesse, intelligence, loyauté          | [[style-sensible]]   |
+| Vert    | Équilibre, renouveau, altruisme         | [[style-instinctif]] |
+| Rose    | Romance, tendresse, espièglerie         | [[style-sensible]]   |
+| Rouge   | Amour, instinct, envie                  | [[style-chaleureux]] |
+| Violet  | Mystère, spiritualité, intuition        | [[style-sensible]]   |
+| Jaune   | Joie, sociabilité, spontanéité          | [[style-chaleureux]] |
+| Orange  | Vitalité, créativité, originalité       | [[style-chaleureux]] |
+| Marron  | Tradition, savoir-faire, fiabilité      | [[style-instinctif]] |
+| Gris    | Conformité, autorité, professionnalisme | [[style-elegant]]    |
+| Noir    | Élégance, raffinement, puissance        | [[style-elegant]]    |
+
 
 La liste source comptait dix intentions et onze lignes. Les onze couleurs font partie du contenu.
 
@@ -143,14 +153,18 @@ Comme chaque question ne désigne qu’un style, et que tous les points des ex �
 
 ### Parcours de contrôle
 
-| Cas | Réponses (Q1 → Q9) | Scores C / É / S / I | Résultat |
-| --- | --- | --- | --- |
-| A | Or jaune, Brillante / clinquante, Feu, Forme libre, Ornemental, Pour les célébrations, Joie, Amitié, Rouge | 9 / 0 / 0 / 0 | Chaleureux |
-| B | Or gris, Mate, Air, Ovale, Minimaliste, Tous les jours, Calme, Passage de vie, Blanc | 0 / 9 / 0 / 0 | Élégant |
-| C | Or rose, Lumineuse, Eau, Ronde, Symbolique, Comme une œuvre, Passion, Amour, Bleu | 0 / 0 / 9 / 0 | Sensible |
-| D | Platine, Brute, Terre, Carrée, Architectural, Comme un talisman, Liberté, Force personnelle, Vert | 0 / 0 / 0 / 9 | Instinctif |
-| E | Or jaune, Mate, Feu, Ovale, Ornemental, Tous les jours, Passion, Amour, Vert | 3 / 3 / 2 / 1 | Élégant : égalité Chaleureux / Élégant, la relecture s’arrête à la question 6 (Tous les jours) |
-| F | Parcours B, puis retour à la question 1, Or jaune à la place d’Or gris, pierre Blanc inchangée | 1 / 8 / 0 / 0 | Élégant. L’ancienne réponse « Or gris » ne compte plus |
+
+| Cas | Réponses (Q1 → Q9)                                                                                         | Scores C / É / S / I | Résultat                                                                                       |
+| --- | ---------------------------------------------------------------------------------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------- |
+| A   | Or jaune, Brillante / clinquante, Feu, Forme libre, Ornemental, Pour les célébrations, Joie, Amitié, Rouge | 9 / 0 / 0 / 0        | Chaleureux                                                                                     |
+| B   | Or gris, Mate, Air, Ovale, Minimaliste, Tous les jours, Calme, Passage de vie, Blanc                       | 0 / 9 / 0 / 0        | Élégant                                                                                        |
+| C   | Or rose, Lumineuse, Eau, Ronde, Symbolique, Comme une œuvre, Passion, Amour, Bleu                          | 0 / 0 / 9 / 0        | Sensible                                                                                       |
+| D   | Platine, Brute, Terre, Carrée, Architectural, Comme un talisman, Liberté, Force personnelle, Vert          | 0 / 0 / 0 / 9        | Instinctif                                                                                     |
+| E   | Or jaune, Mate, Feu, Ovale, Ornemental, Tous les jours, Passion, Amour, Vert                               | 3 / 3 / 2 / 1        | Élégant : égalité Chaleureux / Élégant, la relecture s’arrête à la question 6 (Tous les jours) |
+| F   | Parcours B, puis retour à la question 1, Or jaune à la place d’Or gris, pierre Blanc inchangée             | 1 / 8 / 0 / 0        | Élégant. L’ancienne réponse « Or gris » ne compte plus                                         |
+
+
+
 
 ## Formulaire
 
@@ -162,12 +176,14 @@ Deux adresses, même parcours, même fichier. `/quiz` (Sur-mesure, menu principa
 
 Champs, dans cet ordre, étiquette visible, obligatoires :
 
-| Champ | Règle | Message |
-| --- | --- | --- |
-| Prénom | Après trim, au moins un caractère | Indiquez votre prénom. |
-| Nom | Après trim, au moins un caractère | Indiquez votre nom. |
-| Adresse e-mail | Forme `texte@domaine.tld` | Vide : « Indiquez votre adresse e-mail. » Invalide : « Cette adresse e-mail n'est pas valide. » |
-| Date du mariage | Uniquement sur `/mariage`. Date de calendrier réelle, passée ou à venir | Vide : « Indiquez la date du mariage. » Impossible : « Cette date n'est pas valide. » |
+
+| Champ           | Règle                                                                   | Message                                                                                         |
+| --------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Prénom          | Après trim, au moins un caractère                                       | Indiquez votre prénom.                                                                          |
+| Nom             | Après trim, au moins un caractère                                       | Indiquez votre nom.                                                                             |
+| Adresse e-mail  | Forme `texte@domaine.tld`                                               | Vide : « Indiquez votre adresse e-mail. » Invalide : « Cette adresse e-mail n'est pas valide. » |
+| Date du mariage | Uniquement sur `/mariage`. Date de calendrier réelle, passée ou à venir | Vide : « Indiquez la date du mariage. » Impossible : « Cette date n'est pas valide. »           |
+
 
 La validation enregistre la ligne (base, ou fichier si MySQL est absent) et envoie un premier courrier **Formulaire rempli** à l’adresse d’environnement : coordonnées et les neuf réponses. Le clic **Parlons de votre projet** envoie un second courrier à la personne et à la même adresse : **Demande de contacts pour mariage** ou **Demande de contacts pour bijoux personnalisé**. Sans serveur de courrier configuré, l’enregistrement tient ; le second envoi indique qu’il n’a pas abouti.
 
@@ -196,13 +212,19 @@ Le registre tu/vous et les paragraphes « Tu es une personne… » restent les t
 
 > Tu es une personne solaire, expressive et chaleureuse. Les matières lumineuses comme l’or poli accompagnent ta joie de vivre. Tu es sensible aux bijoux qui célèbrent les moments forts.
 
+
+
 ### Style élégant
 
 > Tu es une personne élégante, discrète et profondément sensible. Tu aimes les bijoux fins, portés au quotidien avec simplicité, dont la modernité révèle une présence affirmée.
 
+
+
 ### Style sensible
 
 > Tu es une personne douce, sensible et rêveuse. Tu aimes les courbes fluides et délicates ; les créations porteuses de sens, qui expriment ta créativité et ton univers intérieur.
+
+
 
 ### Style instinctif
 
@@ -227,22 +249,26 @@ Ces quatre adresses sont en `noindex` tant que l’indexation n’est pas tranch
 - Médailles de métal à la question 1, pas d’aplats. La question pierre n’a que le nom et la symbolique. Le quiz occupe la hauteur de page. La bande de réassurance est au-dessus du bandeau blanc, seulement à l’introduction. Le focus du titre n’affiche pas de contour.
 - Le quiz est une page du site. Les blocs de l’accueil (cartes, infolettre, témoignages) n’en font pas partie.
 
+
+
 ## Mesure
 
 Événements stables, sans freiner le parcours. Propriétés : numéro de question, libellé de réponse, style. Jamais les coordonnées.
 
-| Événement | Moment |
-| --- | --- |
-| `quiz_view` | Affichage de `/quiz` |
-| `quiz_start` | Clic sur « Commencer le quiz » |
-| `quiz_progress` | Affichage d’une question, avec son numéro |
-| `quiz_answer` | **Continuer** avec une réponse, question et libellé |
-| `quiz_form_view` | Affichage du formulaire |
-| `quiz_form_start` | Premier champ modifié |
-| `quiz_form_submit` | Formulaire accepté, avec le style |
-| `quiz_result` | Affichage du résultat, avec le style |
-| `quiz_cta_appointment` | Clic sur « Parlons de votre projet » |
-| `quiz_appointment` | Prise de rendez-vous, seulement si l’outil de rendez-vous la signale |
+
+| Événement              | Moment                                                               |
+| ---------------------- | -------------------------------------------------------------------- |
+| `quiz_view`            | Affichage de `/quiz`                                                 |
+| `quiz_start`           | Clic sur « Commencer le quiz »                                       |
+| `quiz_progress`        | Affichage d’une question, avec son numéro                            |
+| `quiz_answer`          | **Continuer** avec une réponse, question et libellé                  |
+| `quiz_form_view`       | Affichage du formulaire                                              |
+| `quiz_form_start`      | Premier champ modifié                                                |
+| `quiz_form_submit`     | Formulaire accepté, avec le style                                    |
+| `quiz_result`          | Affichage du résultat, avec le style                                 |
+| `quiz_cta_appointment` | Clic sur « Parlons de votre projet »                                 |
+| `quiz_appointment`     | Prise de rendez-vous, seulement si l’outil de rendez-vous la signale |
+
 
 Les abandons se lisent par l’absence de l’événement suivant (début, milieu, question 9, formulaire). Pas de pop-up.
 
@@ -259,18 +285,22 @@ Les abandons se lisent par l’absence de l’événement suivant (début, milie
 - événements du tableau, sans coordonnées dedans
 - aucune techno imposée par cette note
 
-| Cas | Attendu |
-| --- | --- |
-| A à D | Parcours du tableau : score, texte, CTA |
-| E | Égalité 3 / 3, résultat élégant par la question 6 |
-| F | Retour, changement de la question 1, l’ancienne réponse ne compte plus |
-| G | Prénom vide : message « Indiquez votre prénom. », pas de résultat |
-| H | E-mail `anais@` : « Cette adresse e-mail n'est pas valide. » |
-| I | Date 31/02/2026, ou date vide : message du champ, pas de résultat |
-| J, K | Parcours A complet sur mobile et sur desktop |
-| L | Parcours A complet au clavier, sans souris |
-| M | `/quiz/resultat/chaleureux` sans soumission : retour à `/quiz`, sans le paragraphe chaleureux |
-| N | Double activation de « Découvrir mon style » : une seule soumission |
+
+| Cas   | Attendu                                                                                       |
+| ----- | --------------------------------------------------------------------------------------------- |
+| A à D | Parcours du tableau : score, texte, CTA                                                       |
+| E     | Égalité 3 / 3, résultat élégant par la question 6                                             |
+| F     | Retour, changement de la question 1, l’ancienne réponse ne compte plus                        |
+| G     | Prénom vide : message « Indiquez votre prénom. », pas de résultat                             |
+| H     | E-mail `anais@` : « Cette adresse e-mail n'est pas valide. »                                  |
+| I     | Date 31/02/2026, ou date vide : message du champ, pas de résultat                             |
+| J, K  | Parcours A complet sur mobile et sur desktop                                                  |
+| L     | Parcours A complet au clavier, sans souris                                                    |
+| M     | `/quiz/resultat/chaleureux` sans soumission : retour à `/quiz`, sans le paragraphe chaleureux |
+| N     | Double activation de « Découvrir mon style » : une seule soumission                           |
+
+
+
 
 ## Hors scope
 

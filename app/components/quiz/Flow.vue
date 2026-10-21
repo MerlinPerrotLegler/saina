@@ -201,6 +201,29 @@ function optionName(option) {
       </form>
 
       <article v-else-if="ready && etape === 'resultat' && styleId" :class="['c-result', 'c-quiz-step', `c-result-${styleId}`]">
+        <figure class="c-result-board">
+          <img
+            class="c-result-photo"
+            :src="results[styleId].image"
+            :alt="results[styleId].imageAlt"
+            :width="results[styleId].imageWidth"
+            :height="results[styleId].imageHeight"
+          >
+          <figcaption class="c-result-matters">
+            <p class="c-result-matters-label">Matières & couleurs</p>
+            <ul class="c-result-swatches" aria-hidden="true">
+              <li
+                v-for="(swatch, index) in results[styleId].swatches"
+                :key="index"
+                class="c-result-swatch"
+                :style="{ background: swatch }"
+              ></li>
+            </ul>
+            <p class="c-result-keywords">
+              <span v-for="line in results[styleId].matters" :key="line">{{ line }}</span>
+            </p>
+          </figcaption>
+        </figure>
         <p class="c-lead">{{ results[styleId].text }}</p>
         <p class="c-lead">Votre style vous ressemble. Et si nous imaginions maintenant le bijou qui vous ressemble vraiment ?</p>
         <p v-if="contacted" class="c-lead" role="status">Anaïs a bien reçu votre demande.</p>
@@ -214,10 +237,18 @@ function optionName(option) {
           <button
             class="c-btn c-btn-inverse"
             type="button"
-            :disabled="pending || contacted || saveError"
-            @click="requestContact"
+            :disabled="pending || saveError"
+            @click="requestContact({ goToAppointment: true })"
           >
-            {{ contacted ? "Demande envoyée" : (pending ? "Envoi…" : "Parlons de votre projet") }}
+            {{ pending && !contacted ? "Envoi…" : "Prendre rendez-vous" }}
+          </button>
+          <button
+            class="c-btn c-btn-light"
+            type="button"
+            :disabled="pending || contacted || saveError"
+            @click="requestContact()"
+          >
+            {{ contacted ? "Demande envoyée" : (pending ? "Envoi…" : "Écrire à Anaïs") }}
           </button>
           <button
             v-if="saveError"

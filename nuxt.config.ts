@@ -24,7 +24,8 @@ export default defineNuxtConfig({
     smtpPassword: process.env.SMTP_PASSWORD || "",
     public: {
       turnstileSiteKey: turnstileSiteKey && turnstileSecretKey ? turnstileSiteKey : "",
-      appointmentUrl: process.env.NUXT_PUBLIC_APPOINTMENT_URL || "",
+      appointmentUrl:
+        process.env.NUXT_PUBLIC_APPOINTMENT_URL || "https://siana-joaillerie.systeme.io/calendrier",
     },
   },
   hooks: {
@@ -72,6 +73,15 @@ export default defineNuxtConfig({
           name: "description",
           content:
             "Sïana, joaillerie de transmission. Des bijoux imaginés par Anaïs pour raconter ce qui vous rend unique.",
+        },
+      ],
+      script: [
+        {
+          src: "https://www.googletagmanager.com/gtag/js?id=G-1E205YDTHS",
+          async: true,
+        },
+        {
+          innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1E205YDTHS',{send_page_view:false});`,
         },
       ],
     },

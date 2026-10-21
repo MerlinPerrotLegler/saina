@@ -223,8 +223,12 @@ export function useQuiz() {
     else if (/^[2-9]$/.test(step)) router.push(`${base.value}/question/${Number(step) - 1}`);
   }
 
-  async function requestContact() {
-    if (pending.value || contacted.value || !leadId.value) return;
+  async function requestContact({ goToAppointment = false } = {}) {
+    if (pending.value || !leadId.value) return;
+    if (contacted.value) {
+      if (goToAppointment) await router.push("/rendez-vous");
+      return;
+    }
     pending.value = true;
     contactError.value = false;
     try {
@@ -233,7 +237,10 @@ export function useQuiz() {
         body: { id: leadId.value },
       });
       contacted.value = true;
-      trackQuiz("quiz_cta_appointment", { style: styleId.value });
+      trackQuiz(goToAppointment ? "quiz_cta_appointment" : "quiz_cta_contact", {
+        style: styleId.value,
+      });
+      if (goToAppointment) await router.push("/rendez-vous");
     } catch {
       contactError.value = true;
     } finally {

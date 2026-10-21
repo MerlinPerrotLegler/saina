@@ -156,9 +156,9 @@ const cards = pieces.map((piece) => ({
       align-items: center;
       gap: 0.7rem;
       margin: 2rem 0 0.7rem;
-      font-family: var(--font-serif);
+      font-family: var(--font-title, "Condor Regula", "Condor Regular", Condor, "Iowan Old Style", Palatino, Georgia, serif);
       font-size: 1.6rem;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     .c-about-mark {

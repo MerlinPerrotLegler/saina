@@ -3,6 +3,7 @@ export const mainNav = [
   { label: "Sur-mesure", href: "/quiz" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Contact", href: "/contact" },
+  { label: "Rendez-vous", href: "/rendez-vous" },
 ];
 
 export function isCurrentPath(path, href) {

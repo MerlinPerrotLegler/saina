@@ -127,6 +127,7 @@ async function onSubmit() {
       },
     });
     sent.value = true;
+    useNuxtApp().$track?.("contact_submit");
   } catch (error) {
     const payload = error?.data || {};
     const fieldErrors = payload.data?.errors || payload.errors;

@@ -28,13 +28,13 @@ Quatre niveaux de texte repris partout sur la maquette. Chacun est optionnel.
 | Input | Type | Rôle |
 | --- | --- | --- |
 | kicker | string | Petite capitale : « Collections », « À propos », « Bijoux & talismans » |
-| title | string | Titre serif |
+| title | string | Titre en Condor Regula |
 | lead | string | Paragraphe |
 | label | string | Légende sous un signe, en capitales |
 
 ## Classes
 
 - `c-kicker` — capitales, suivi 0,22 em
-- `c-title` — serif de thème, titre de section
+- `c-title` — Condor Regula, titre de section
 - `c-lead` — paragraphe, largeur plafonnée
 - `c-label` — légende de signe, capitales
