@@ -23,6 +23,7 @@ export default defineNuxtConfig({
     smtpUser: process.env.SMTP_USER || "",
     smtpPassword: process.env.SMTP_PASSWORD || "",
     public: {
+      siteUrl: (process.env.NUXT_PUBLIC_SITE_URL || "https://siana-joaillerie.fr").replace(/\/$/, ""),
       turnstileSiteKey: turnstileSiteKey && turnstileSecretKey ? turnstileSiteKey : "",
       appointmentUrl:
         process.env.NUXT_PUBLIC_APPOINTMENT_URL || "https://siana-joaillerie.systeme.io/calendrier",

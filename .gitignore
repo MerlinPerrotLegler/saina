@@ -13,3 +13,7 @@ dist
 .env
 .env.*
 !.env.example
+
+# Salesforce CLI local state (org cache, metadata catalog)
+.sf/
+.sfdx/
