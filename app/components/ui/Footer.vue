@@ -38,6 +38,7 @@ function current(href) {
 
 <template>
   <footer class="c-footer">
+    <div class="c-container">
     <div class="c-footer-grid">
       <div>
         <UiLogo />
@@ -72,5 +73,6 @@ function current(href) {
     <p class="c-footer-legal">
       <span>© {{ year }} Sïana — Tous droits réservés</span>
     </p>
+    </div>
   </footer>
 </template>

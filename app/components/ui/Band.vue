@@ -16,6 +16,7 @@ function textOf(index) {
 
 <template>
   <section class="c-band" :aria-label="label">
+    <div class="c-container c-band-grid">
     <UiBandIcon
       :icon1="iconOf(0)"
       :text1="textOf(0)"
@@ -26,5 +27,6 @@ function textOf(index) {
       :icon4="iconOf(3)"
       :text4="textOf(3)"
     />
+    </div>
   </section>
 </template>

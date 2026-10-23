@@ -145,6 +145,7 @@ async function onSubmit() {
 
 <template>
   <div class="c-sheet">
+    <div class="c-container">
     <div class="c-contact">
     <div class="c-sheet-narrow">
       <header class="c-sheet-intro">
@@ -220,6 +221,7 @@ async function onSubmit() {
         height="1600"
       >
     </figure>
+    </div>
     </div>
   </div>
 </template>

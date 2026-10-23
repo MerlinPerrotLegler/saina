@@ -24,11 +24,13 @@ useHead({
 
 <template>
   <header class="c-portfolio-intro">
+    <div class="c-container">
     <p class="c-kicker">Portfolio</p>
     <h1 class="c-title">Des pièces, des mots</h1>
     <p class="c-lead">
       Les créations racontées par Anaïs, et les retours de Lucie et d’Eva.
     </p>
+    </div>
   </header>
 
   <template v-for="(piece, index) in pieces" :key="piece.id">
@@ -39,16 +41,26 @@ useHead({
     :id="piece.id"
     class="c-piece"
   >
-    <figure class="c-piece-figure">
-      <img
-        :src="piece.image"
-        :alt="piece.alt"
-        :width="piece.width"
-        :height="piece.height"
-        :loading="index === 0 ? 'eager' : 'lazy'"
-        decoding="async"
-      >
-    </figure>
+    <div class="c-container c-piece-layout">
+    <div class="c-piece-side">
+      <figure class="c-piece-figure">
+        <img
+          :src="piece.image"
+          :alt="piece.alt"
+          :width="piece.width"
+          :height="piece.height"
+          :loading="index === 0 ? 'eager' : 'lazy'"
+          decoding="async"
+        >
+      </figure>
+      <blockquote v-if="piece.review" class="c-letter" :class="`c-letter-${piece.review.hand}`">
+        <p class="c-letter-kicker">Sïana</p>
+        <p v-for="(paragraph, paragraphIndex) in piece.review.paragraphs" :key="paragraphIndex">
+          {{ paragraph }}
+        </p>
+        <footer v-if="piece.review.author">— {{ piece.review.author }}</footer>
+      </blockquote>
+    </div>
     <div class="c-piece-copy">
       <p class="c-kicker">{{ piece.kicker }}</p>
       <h2 class="c-title">{{ piece.title }}</h2>
@@ -56,20 +68,14 @@ useHead({
         {{ paragraph }}
       </p>
     </div>
-    <blockquote v-if="piece.review" class="c-letter" :class="`c-letter-${piece.review.hand}`">
-      <p class="c-letter-kicker">Sïana</p>
-      <p v-for="(paragraph, paragraphIndex) in piece.review.paragraphs" :key="paragraphIndex">
-        {{ paragraph }}
-      </p>
-      <footer v-if="piece.review.author">— {{ piece.review.author }}</footer>
-    </blockquote>
+    </div>
   </article>
   </template>
 </template>
 
 <style lang="scss">
 .c-portfolio-intro {
-  padding: 3.4rem 6vw 2.8rem;
+  padding: 3.4rem 0 2.8rem;
   background: #fff;
   border-bottom: 1px solid color-mix(in srgb, var(--color-pourpre) 12%, transparent);
 

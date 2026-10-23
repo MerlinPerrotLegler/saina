@@ -19,6 +19,7 @@ onMounted(() => {
 
 <template>
   <div class="c-sheet">
+    <div class="c-container c-container-prose">
     <div class="c-sheet-narrow">
       <header class="c-sheet-intro">
         <p class="c-kicker">Rendez-vous</p>
@@ -28,6 +29,7 @@ onMounted(() => {
         </p>
       </header>
       <UiBtn label="Retour à l’accueil" href="/" />
+    </div>
     </div>
   </div>
 </template>

@@ -38,6 +38,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="c-sheet">
+    <div class="c-container">
     <header class="c-sheet-intro">
       <p class="c-kicker">Rendez-vous</p>
       <h1 class="c-title">Réserver un échange avec Anaïs</h1>
@@ -55,10 +56,15 @@ onBeforeUnmount(() => {
         referrerpolicy="no-referrer-when-downgrade"
       />
     </div>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.c-sheet-intro {
+  max-width: 56rem;
+}
+
 .c-appointment {
   width: 100%;
   max-width: 56rem;

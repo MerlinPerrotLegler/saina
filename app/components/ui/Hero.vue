@@ -63,7 +63,7 @@ onMounted(() => {
       >
     </picture>
     <div class="c-hero-copy">
-      <UiLogo />
+      <UiLogo mark />
       <p class="c-kicker">{{ kicker }}</p>
       <h1 class="c-hero-title">
         <template v-for="(line, index) in title" :key="line">

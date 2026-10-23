@@ -52,7 +52,7 @@ const cards = pieces.map((piece) => ({
   <UiBand class="bg-creme text-terracotta" label="Réassurance" :items="reassures" />
 
   <article id="recit" class="c-about">
-    <div class="c-about__text">
+    <div class="c-container c-container-prose c-about__text">
       <section>
         <h2><span class="c-about-mark" aria-hidden="true"><BrandSvg name="icone-soleil" /></span>Des bijoux imaginés</h2>
         <p>Derrière Sïana Joaillerie, il y a moi, Anaïs.</p>
@@ -104,6 +104,7 @@ const cards = pieces.map((piece) => ({
     </div>
   </article>
 
+  <div class="c-container c-container-flush">
   <UiSplit
     id="invitation"
     image="/portfolio/demi-soleil.jpeg"
@@ -113,9 +114,10 @@ const cards = pieces.map((piece) => ({
     lead="Quelques questions pour reconnaître un style de bijou, puis une rencontre avec Anaïs."
     :cta="{ label: 'Commencer le quiz', href: '/quiz', variant: 'primary' }"
   />
+  </div>
 
   <article class="c-about">
-    <div class="c-about__text">
+    <div class="c-container c-container-prose c-about__text">
       <section>
         <h2><span class="c-about-mark" aria-hidden="true"><BrandSvg name="icone-s" /></span>Moi, Anaïs</h2>
         <p>Je suis à la fois la créatrice, la dessinatrice et la conceptrice 3D derrière Sïana Joaillerie.</p>
@@ -133,6 +135,7 @@ const cards = pieces.map((piece) => ({
   </article>
 
   <section class="c-section">
+    <div class="c-container">
     <UiSectionIntro
       kicker="Portfolio"
       title="Des créations qui ont une histoire"
@@ -140,16 +143,16 @@ const cards = pieces.map((piece) => ({
       :cta="{ label: 'Voir le portfolio', href: '/portfolio', variant: 'primary' }"
     />
     <UiCards :items="cards" />
+    </div>
   </section>
 
 </template>
 
 <style lang="scss">
 .c-about {
-  padding: 1.5rem 6vw 3rem;
+  padding: 1.5rem 0 3rem;
 
   &__text {
-    max-width: 40rem;
 
     h2 {
       display: flex;

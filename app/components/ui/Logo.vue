@@ -8,11 +8,18 @@ defineProps({
     type: String,
     default: "/",
   },
+  mark: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
 <template>
-  <NuxtLink class="c-brand" :to="href">
+  <NuxtLink v-if="mark" class="c-brand c-brand-mark" :to="href" aria-label="Sïana">
+    <BrandSvg name="icone-logo" />
+  </NuxtLink>
+  <NuxtLink v-else class="c-brand" :to="href">
     <template v-for="(line, index) in lines" :key="line">
       <br v-if="index">{{ line }}
     </template>

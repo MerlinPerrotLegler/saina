@@ -21,7 +21,8 @@ function current(href) {
 
 <template>
   <header class="c-header">
-    <UiLogo />
+    <div class="c-container c-header-inner">
+    <UiLogo mark />
     <nav class="c-nav" aria-label="Principal">
       <NuxtLink
         v-for="item in items"
@@ -41,6 +42,7 @@ function current(href) {
         :href="tool.href"
         :icon="tool.icon"
       />
+    </div>
     </div>
   </header>
 </template>
