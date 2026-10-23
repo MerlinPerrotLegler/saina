@@ -53,7 +53,8 @@ export default defineNuxtConfig({
   routeRules: {
     "/a-propos": { redirect: { to: "/", statusCode: 301 } },
     "/sur-mesure": { redirect: { to: "/quiz", statusCode: 301 } },
-    "/styleguide/": { redirect: { to: "/styleguide", statusCode: 302 } },
+    // Nuxt 4.6.2 folds a trailing slash into the rule key, so "/styleguide/"
+    // would also match "/styleguide" and redirect the page onto itself.
     "/styleguide/index.html": { redirect: { to: "/styleguide", statusCode: 302 } },
   },
   nitro: {
