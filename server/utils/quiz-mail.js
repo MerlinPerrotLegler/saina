@@ -53,10 +53,15 @@ async function managerHtml(name, data) {
   } catch {
     source = "";
   }
-  if (!source.includes("<html")) {
-    source = await readFile(path.join(process.cwd(), "emails/html", `${name}.html`), "utf8");
+  try {
+    if (!source.includes("<html")) {
+      source = await readFile(path.join(process.cwd(), "emails/html", `${name}.html`), "utf8");
+    }
+    return fill(source, data);
+  } catch (error) {
+    console.error("mail template:", error?.code || "unavailable");
+    return "";
   }
-  return fill(source, data);
 }
 
 export async function sendFilledForm(config, lead) {
